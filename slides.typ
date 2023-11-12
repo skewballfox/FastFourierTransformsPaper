@@ -81,12 +81,12 @@
   == What is a Discrete Fourier Transform
   Lets define a signal $a_n$ as a sequence of $N$ values $a_0, a_1, a_2, ... a_(N-1)$.
 
-  this signal is periodic so $a_n=a_(n+j N)$ for all $n and j$\ the DFT of $a$ is
+  this signal is periodic so $a_n=a_(n+j N)$ for all $n and j$\ the DFT of $a$ is a sequence $A$ of equal length
   defined as
   $
   A_k = sum_n^(N-1) W_N^(k n) a_n
   $\
-  where $W_N^(k n) = e^(i (-2pi n)/N)$
+  where $W_N^(k n) = e^(i (-2pi n)/N)$ 
 
   #pause
   $W_N^k$for $k=0... N-1$ are the $N$th roots of unity, as they satisfy the
@@ -95,7 +95,51 @@
 #centered-slide[
   == Discrete Fourier Transform
   If you use the definition of the DCT directly it takes $O(N^2)$ time to compute
-  the DFT of a signal of length $N$. For each
+  the DFT of a signal of length $N$, as each term $A_k$ requires $N$ operations
+]
+
+#centered-slide[
+  == DFT of a signal of length 2
+  Let's look at the DFT of a signal of length 2.\
+  $
+    W_N = e^(i (-2pi )/2)=e^(-i pi)=-1
+  $
+  $
+    A_k=sum_(n=0)^(1) -1^(k n) a_n = \(-1\)^(k dot 0) + \(-1\)^(k dot 1) = a_0 + (-1)^(k) a_1
+  $
+  $
+    A_0 = a_0 + a_1\
+    A_1 = a_0 - a_1
+  $
+]
+// #centered-slide[
+//   == DFT of a signal of length 4
+//   Let's look at the DFT of a signal of length 4.\
+//   $
+//     W_N = e^(i (-2pi )/4)=e^(-i pi/2)=-i
+//   $
+//   $
+//     A_k=sum_(n=0)^(3) -i^(k n) a_n 
+//     = a_0 + (-i)^(k) a_1 + (-i)^(2 k) a_2 + (-i)^(3 k) a_3\
+//   $
+//   $
+//     A_0 = a_0 + a_1 + a_2 + a_3\
+//     A_1 = a_0 - i a_1 - a_2 +i a_3\
+//     A_2 = a_0 - a_1 + a_2 - a_3\
+//     A_3 = a_0 + i a_1 - a_2 - i a_3
+//   $
+// ]
+
+#slide[
+  == So how does the FFT handle this in n log n?
+  It exploits the symmetry of even powers. The 
+]
+#slide[
+  == Divide and Conquer Approach
+  1. Divide the sequence into two sequences of length $N/2$ one containing the even powered terms and one containing the odd powered terms.
+  2. Compute the FFT of each of these sequences recursively.
+  3. Combine the results of the two recursive calls to compute the FFT of the original sequence.
+  
 ]
 
 #slide[
