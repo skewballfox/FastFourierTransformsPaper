@@ -7,7 +7,7 @@
 #show: simple-theme.with(footer: [Simple slides])
 
 #title-slide[
-  = Fast Fourier Transform
+  = Fast Fourier Transforms
   #v(2em)
 
   Joshua Ferguson
@@ -17,7 +17,7 @@
 
 #centered-slide[
   == quick note about polynomials
-  Given a polynomial of degree $n$, there are 2 ways to represent it:\
+  Given a real numbered polynomial of degree $n$, there are 2 ways to represent it:\
   1. as a vector of coefficients $a_0, a_1, a_2, ... a_n$\
   2. as a set of $n+1$ points $(x_0, y_0), (x_1, y_1), ... (x_n, y_n)$
 ]
@@ -27,13 +27,14 @@
   It's an algorithm that computes the Discrete Fourier Transform of a sequence of
   numbers.\
 
-  #pause
   This is useful because it allows us to convert a polynomial from one
   representation to the other in $O(n log n)$ time.\
 
   Computing the FFT of a vector of coefficients gives us the points of the
   polynomial, and computing the inverse FFT of a set of points gives us the
   coefficients of the polynomial.
+  // While it's not mentioned on the next slide, this allows us to do polynomial
+  // multiplication in $O(n log n)$ time.
 
 ]
 
@@ -44,6 +45,8 @@
     signal can be reconstructed.
   - Because of this it's used heavily in audio processing, image compression,
     radar, sonar, seismology, and more.
+  
+
 ]
 
 
@@ -102,29 +105,22 @@
 #slide[
   $W_N^k$for $k=0... N-1$ are the $N$th roots of unity, as they satisfy the
   equation $(W_N^k)^N = 1$
+  - because powers of roots of unity are periodic (repeat every $N$ steps), their possible values are limited to $N$ distinct points on the unit circle in the complex plane.
 
-  because powers of roots of unity are periodic (repeat every $N$ steps), their possible values are limited to $N$ distinct points on the unit circle in the complex plane.
+  #figure(
+    image(".attachments/Pasted image 20231113133723.png", width: 65%),
+    caption: [
+      The roots of unity for N=2,4,8 @heckbert1995fourier
+    ]
+  )
   
 ]
+
 #centered-slide[
   == Discrete Fourier Transform
   it takes $O(N^2)$ time to compute the DFT of a signal of length $N$. For each element of the $N$-length output, you have to compute a sum of $N$ terms.\
 ]
 
-// #centered-slide[
-//   == DFT of a signal of length 2
-//   Let's look at the DFT of a signal of length 2.\
-//   $
-//     W_N = e^(i (-2pi )/2)=e^(-i pi)=-1
-//   $
-//   $
-//     A_k=sum_(n=0)^(1) -1^(k n) a_n = \(-1\)^(k dot 0) + \(-1\)^(k dot 1) = a_0 + (-1)^(k) a_1
-//   $
-//   $
-//     A_0 = a_0 + a_1\
-//     A_1 = a_0 - a_1
-//   $
-// ]
 #centered-slide[
   == DFT of a signal of length 4
   Let's look at the DFT of a signal of length 4.\
@@ -150,7 +146,11 @@
   DFT of a signal in $O(N log N)$ time.\
 
   It does this by splitting the signal into 2 halves, recursively computing the
-  FFT of each, and then combining the results.
+  FFT of each, and then combining the results. it requires $O(N)$ extra space
+  $
+  T(N) = 2 T(N/2) + O(N)
+  $
+  
 
 ]
 #slide[
@@ -170,9 +170,8 @@
       return result
   ```
 ]
-
 #centered-slide[
-  == Comparison of DFT and FFT
+  == Comparison of DFT and (Cooley-Tukey) FFT
   #table(
   columns: (1fr, auto, auto, auto),
   inset: 10pt,
@@ -187,25 +186,46 @@
  
 )
 ]
+#slide[
+  == Fast Fourier Transform Algorithms
+  There are many different FFT algorithms, each suited to different situations.\
+  - Rader's algorithm is useful for prime length inputs
+  - Good-Thomas algorithm (PFA) is useful when into two vectors whose lengths are relatively prime
+  - Radix3 is useful for inputs that are powers of 3
+  - Bluestein's algorithm is useful for inputs of arbitrary length
+  - This is nowhere near an exhaustive list
+  // Algorithms may choose a different base that technically performs more
+  //operations, but is faster because of available hardware instructions.
+]
 
 #slide[
-  == limitations of FFT algorithms
+  == FFT Implementations
+  - Given that which algorithm is optimal is often context dependent, Libraries
+    that provide FFT implementations often employ a planner that chooses the best (hybrid) algorithm for the given input and the hardware. @frigoDesignImplementationFFTW32005
+
+  - The plan is cached so that the next time the same input is given, the
+    algorithm can be immediately executed.
+  - FFTW is a popular library that does this. It's used internally by numpy, scipy
+]
+
+
+// #slide[
+//   == limitations of FFT algorithms
+
   
-]
-#focus-slide[
-  _Focus!_
+// ]
 
-  This is very important.
-]
-
-#centered-slide[
-  = Let's start a new section!
+#slide[
+  = Useful YouTube videos
+  //normally I don't recommend youtube videos for learning something, but there 
+  //is a visual component to how and why the FFT works that text is a poor medium for
+  - The Remarkable Story Behind The Most Important Algorithm Of All Time, by Veritasium //history of FFT, developed to detect underground nuclear tests
+  - The Fast Fourier Transform (FFT): Most Ingenious Algorithm Ever?, by Reducible //goes into the math behind the FFT, and a bit about Fourier transforms
+  - Divide and Conquer: FFT, by MIT Open Courseware //Probably start with this if you don't mind an hour and 20 minute lecture, it's the only one that is 
+  //geared towards CS students and doesn't use a ton of signal processing and physics terminology
 ]
 
 #slide[
-  == Dynamic slide
-  Did you know that...
-
-  #pause
-  ...you can see the current section at the top of the slide?
+  = Sources
+  #bibliography("refs.bib")
 ]

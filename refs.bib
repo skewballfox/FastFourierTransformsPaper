@@ -1,9 +1,112 @@
-@article{netwok2020,
-  title={At-scale impact of the {Net Wok}: A culinarically holistic investigation of distributed dumplings},
-  author={Astley, Rick and Morris, Linda},
-  journal={Armenian Journal of Proceedings},
-  volume={61},
-  pages={192--219},
-  year=2020,
-  publisher={Automatic Publishing Inc.}
+@inproceedings{chiFastFourierConvolution2020,
+  title = {Fast {{Fourier Convolution}}},
+  booktitle = {Advances in {{Neural Information Processing Systems}}},
+  author = {Chi, Lu and Jiang, Borui and Mu, Yadong},
+  year = {2020},
+  volume = {33},
+  pages = {4479--4488},
+  publisher = {{Curran Associates, Inc.}},
+  urldate = {2023-11-08},
+  abstract = {Vanilla convolutions in modern deep networks are known to operate locally and at fixed scale (e.g., the widely-adopted 3*3 kernels in image-oriented tasks). This causes low efficacy in connecting two distant locations in the network. In this work, we propose a novel convolutional operator dubbed as fast Fourier convolution (FFC), which has the main hallmarks of non-local receptive fields and cross-scale fusion within the convolutional unit. According to spectral convolution theorem in Fourier theory, point-wise update in the spectral domain globally affects all input features involved in Fourier transform, which sheds light on neural architectural design with non-local receptive field. Our proposed FFC is inspired to capsulate three different kinds of computations in a single operation unit: a local branch that conducts ordinary small-kernel convolution, a semi-global branch that processes spectrally stacked image patches, and a global branch that manipulates image-level spectrum. All branches complementarily address different scales. A multi-branch aggregation step is included in FFC for cross-scale fusion. FFC is a generic operator that can directly replace vanilla convolutions in a large body of existing networks, without any adjustments and with comparable complexity metrics (e.g., FLOPs). We experimentally evaluate FFC in three major vision benchmarks (ImageNet for image recognition, Kinetics for video action recognition, MSCOCO for human keypoint detection). It consistently elevates accuracies in all above tasks by significant margins.},
+  file = {/home/skewballfox/Zotero/storage/GWVCN8YI/Chi et al. - 2020 - Fast Fourier Convolution.pdf}
+}
+
+@article{frigoDesignImplementationFFTW32005,
+  title = {The {{Design}} and {{Implementation}} of {{FFTW3}}},
+  author = {Frigo, M. and Johnson, S.G.},
+  year = {2005},
+  month = feb,
+  journal = {Proceedings of the IEEE},
+  volume = {93},
+  number = {2},
+  pages = {216--231},
+  issn = {0018-9219},
+  doi = {10.1109/JPROC.2004.840301},
+  urldate = {2023-11-13},
+  file = {/home/skewballfox/Zotero/storage/2U3PHSSD/Frigo and Johnson - 2005 - The Design and Implementation of FFTW3.pdf}
+}
+
+@inproceedings{frigoFFTWAdaptiveSoftware1998,
+  title = {{{FFTW}}: An Adaptive Software Architecture for the {{FFT}}},
+  shorttitle = {{{FFTW}}},
+  booktitle = {Proceedings of the 1998 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}}, {{ICASSP}} '98 ({{Cat}}. {{No}}.{{98CH36181}})},
+  author = {Frigo, M. and Johnson, S.G.},
+  year = {1998},
+  volume = {3},
+  pages = {1381--1384},
+  publisher = {{IEEE}},
+  address = {{Seattle, WA, USA}},
+  doi = {10.1109/ICASSP.1998.681704},
+  urldate = {2023-11-02},
+  isbn = {978-0-7803-4428-0}
+}
+
+@article{girgisQuantitativeStudyPitfalls1980,
+  title = {A {{Quantitative Study}} of {{Pitfalls}} in the {{FFT}}},
+  author = {Girgis, Adly and Ham, Fredric},
+  year = {1980},
+  month = jul,
+  journal = {IEEE Transactions on Aerospace and Electronic Systems},
+  volume = {AES-16},
+  number = {4},
+  pages = {434--439},
+  issn = {0018-9251},
+  doi = {10.1109/TAES.1980.308971},
+  urldate = {2023-11-02}
+}
+
+@article{heckbert1995fourier,
+  title = {Fourier Transforms and the Fast {{Fourier}} Transform ({{FFT}}) Algorithm},
+  author = {Heckbert, Paul},
+  year = {1995},
+  journal = {Computer Graphics},
+  volume = {2},
+  number = {1995},
+  pages = {15--463},
+  file = {/home/skewballfox/Zotero/storage/3WBHE48E/Heckbert - 1995 - Fourier transforms and the fast Fourier transform .pdf}
+}
+
+@article{heideman1985gauss,
+  title = {Gauss and the History of the Fast {{Fourier}} Transform},
+  author = {Heideman, Michael T and Johnson, Don H and Burrus, C Sidney},
+  year = {1985},
+  journal = {Archive for history of exact sciences},
+  pages = {265--277},
+  publisher = {{JSTOR}},
+  file = {/home/skewballfox/Zotero/storage/X2CEY64U/Heideman et al. - 1985 - Gauss and the history of the fast Fourier transfor.pdf}
+}
+
+@inproceedings{moreland2003fft,
+  title = {The {{FFT}} on a {{GPU}}},
+  booktitle = {Proceedings of the {{ACM SIGGRAPH}}/{{EUROGRAPHICS}} Conference on Graphics Hardware},
+  author = {Moreland, Kenneth and Angel, Edward},
+  year = {2003},
+  pages = {112--119}
+}
+
+@inproceedings{rooneyEvaluatingFFTPerformance2023a,
+  title = {Evaluating {{FFT}} Performance of the {{C}} and {{Rust Languages}} on {{Raspberry Pi}} Platforms},
+  booktitle = {2023 57th {{Annual Conference}} on {{Information Sciences}} and {{Systems}} ({{CISS}})},
+  author = {Rooney, Michael P. and Matthews, Suzanne J.},
+  year = {2023},
+  month = mar,
+  pages = {1--6},
+  doi = {10.1109/CISS56502.2023.10089631},
+  urldate = {2023-10-30},
+  abstract = {The Fast Fourier Transform (FFT) is perhaps the most consequential algorithm for real-time applications for digital signals processing. Given the increased importance of securing devices on the edge, memory safety becomes an increasing concern for FFT applications. This work compares the performance of four FFT implementations written in the C and the Rust languages, benchmarked on the Raspberry Pi 4 and the Raspberry Pi Zero W platforms. Our results suggest that FFTs implemented in Rust are up to 45\% more energy efficient than those written in C, and that Rust FFT implementations execute up to 37\% faster than corresponding FFTs implemented in C. These results suggest that real-time application designers should take a closer look at the Rust language to enhance the safety and performance of their FFT applications.},
+  file = {/home/skewballfox/Zotero/storage/2BKYFKDK/Rooney and Matthews - 2023 - Evaluating FFT performance of the C and Rust Langu.pdf}
+}
+
+@article{StructuredReviewSparse2022,
+  title = {A Structured Review of Sparse Fast {{Fourier}} Transform Algorithms},
+  year = {2022},
+  month = apr,
+  journal = {Digital Signal Processing},
+  volume = {123},
+  pages = {103403},
+  issn = {1051-2004},
+  doi = {10.1016/j.dsp.2022.103403},
+  urldate = {2023-11-08},
+  abstract = {Discrete Fourier transform (DFT) implementation requires high computational resources and time; a computational complexity of order O(N2) for a signal\ldots},
+  langid = {american}
 }
