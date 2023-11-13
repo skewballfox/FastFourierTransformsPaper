@@ -7,12 +7,12 @@
 #show: simple-theme.with(footer: [Simple slides])
 
 #title-slide[
-  = Keep it simple!
+  = Fast Fourier Transform
   #v(2em)
 
-  Alpha #footnote[Uni Augsburg] #h(1em)
+  Joshua Ferguson
 
-  July 23
+  //July 23
 ]
 
 #centered-slide[
@@ -34,7 +34,18 @@
   Computing the FFT of a vector of coefficients gives us the points of the
   polynomial, and computing the inverse FFT of a set of points gives us the
   coefficients of the polynomial.
+
 ]
+
+#centered-slide[
+  == Applications in (Computer) Science
+  - When used in signal processing, it can break down a signal into its
+    constituent frequencies. These can then be filtered out or modified and the
+    signal can be reconstructed.
+  - Because of this it's used heavily in audio processing, image compression,
+    radar, sonar, seismology, and more.
+]
+
 
 #slide[
   == history of the FFT
@@ -87,68 +98,62 @@
   A_k = sum_n^(N-1) W_N^(k n) a_n
   $\
   where $W_N^(k n) = e^(i (-2pi n)/N)$ 
-
-  #pause
+]
+#slide[
   $W_N^k$for $k=0... N-1$ are the $N$th roots of unity, as they satisfy the
   equation $(W_N^k)^N = 1$
+
+  because powers of roots of unity are periodic (repeat every $N$ steps), their possible values are limited to $N$ distinct points on the unit circle in the complex plane.
+  
 ]
 #centered-slide[
   == Discrete Fourier Transform
-  If you use the definition of the DCT directly it takes $O(N^2)$ time to compute
-  the DFT of a signal of length $N$, as each term $A_k$ requires $N$ operations
+  it takes $O(N^2)$ time to compute the DFT of a signal of length $N$. For each element of the $N$-length output, you have to compute a sum of $N$ terms.\
 ]
 
-#centered-slide[
-  == DFT of a signal of length 2
-  Let's look at the DFT of a signal of length 2.\
-  $
-    W_N = e^(i (-2pi )/2)=e^(-i pi)=-1
-  $
-  $
-    A_k=sum_(n=0)^(1) -1^(k n) a_n = \(-1\)^(k dot 0) + \(-1\)^(k dot 1) = a_0 + (-1)^(k) a_1
-  $
-  $
-    A_0 = a_0 + a_1\
-    A_1 = a_0 - a_1
-  $
-]
 // #centered-slide[
-//   == DFT of a signal of length 4
-//   Let's look at the DFT of a signal of length 4.\
+//   == DFT of a signal of length 2
+//   Let's look at the DFT of a signal of length 2.\
 //   $
-//     W_N = e^(i (-2pi )/4)=e^(-i pi/2)=-i
-//   $
-//   $
-//     A_k=sum_(n=0)^(3) -i^(k n) a_n 
-//     = a_0 + (-i)^(k) a_1 + (-i)^(2 k) a_2 + (-i)^(3 k) a_3\
+//     W_N = e^(i (-2pi )/2)=e^(-i pi)=-1
 //   $
 //   $
-//     A_0 = a_0 + a_1 + a_2 + a_3\
-//     A_1 = a_0 - i a_1 - a_2 +i a_3\
-//     A_2 = a_0 - a_1 + a_2 - a_3\
-//     A_3 = a_0 + i a_1 - a_2 - i a_3
+//     A_k=sum_(n=0)^(1) -1^(k n) a_n = \(-1\)^(k dot 0) + \(-1\)^(k dot 1) = a_0 + (-1)^(k) a_1
+//   $
+//   $
+//     A_0 = a_0 + a_1\
+//     A_1 = a_0 - a_1
 //   $
 // ]
+#centered-slide[
+  == DFT of a signal of length 4
+  Let's look at the DFT of a signal of length 4.\
+  $
+    W_N = e^(i (-2pi )/4)=e^(-i pi/2)=-i
+  $
+  $
+    A_k=sum_(n=0)^(3) -i^(k n) a_n 
+    = a_0 + (-i)^(k) a_1 + (-i)^(2 k) a_2 + (-i)^(3 k) a_3\
+  $
+  $
+    A_0 = a_0 + (a_1 + a_2) + a_3\
+    A_1 = a_0 - (i a_1 - a_2) +i a_3\
+    A_2 = a_0 - (a_1 + a_2) - a_3\
+    A_3 = a_0 + (i a_1 - a_2) - i a_3
+  $
+]
+
 
 #slide[
-  == So how does the FFT handle this in n log n?
-  It exploits the symmetry of even powers. The 
+  == Fast Fourier Transform (Cooley-Tukey)
+  The Cooley-Tukey algorithm is a divide and conquer algorithm that computes the
+  DFT of a signal in $O(N log N)$ time.\
+
+  It does this by splitting the signal into 2 halves, recursively computing the
+  FFT of each, and then combining the results.
+
 ]
 #slide[
-  == Divide and Conquer Approach
-  1. Divide the sequence into two sequences of length $N/2$ one containing the even powered terms and one containing the odd powered terms.
-  2. Compute the FFT of each of these sequences recursively.
-  3. Combine the results of the two recursive calls to compute the FFT of the original sequence.
-  
-]
-
-#slide[
-  == Applications in Computer Science
-
-]
-
-#slide[
-  == Fast Fourier Transform (simple version)
   input: a coefficient vector $a$ of length $N$ where $N$ is a power of 2\
   output: the DFT of $a$
 
@@ -165,6 +170,11 @@
   #" " result[k] = even[k] + (nth_root^k \* odd[k])\
   #" " result[k+n/2] = even[k] - (nth_root^k \* odd[k])\
   return result
+]
+
+#slide[
+  == Applications in Computer Science
+
 ]
 #focus-slide[
   _Focus!_
