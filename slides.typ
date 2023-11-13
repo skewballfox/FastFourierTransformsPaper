@@ -154,25 +154,44 @@
 
 ]
 #slide[
-  input: a coefficient vector $a$ of length $N$ where $N$ is a power of 2\
-  output: the DFT of $a$
-
-  let n = length(a)\
-  if n == 1:\
-  #" return a"
-
-  let nth_root = $e^((2pi i)/n)$\
-  let even = FFT([$a_0$, $a_2$, $a_4$, ...])\
-  let odd = FFT([$a_1$, $a_3$, $a_5$, ...])\
-
-  let result = vector of length n\
-  for k = 0 to n/2 - 1:\
-  #" " result[k] = even[k] + (nth_root^k \* odd[k])\
-  #" " result[k+n/2] = even[k] - (nth_root^k \* odd[k])\
-  return result
+  
+  ```py
+  def FFT(a: NDArray[complex]) -> NDArray[complex]:
+      n: int = len(a) # n is a power of 2
+      if n == 1:
+          return a
+      nth_root: complex = e**((2*pi*1j)/n)
+      even: NDArray[complex] = FFT(a[::2])
+      odd: NDArray[complex] = FFT(a[1::2])
+      result: NDArray[complex] = np.zeros(n, dtype=complex)
+      for k in range(n//2):
+          result[k] = even[k] + (nth_root**k * odd[k])
+          result[k+n//2] = even[k] - (nth_root**k * odd[k])
+      return result
+  ```
 ]
 
+#centered-slide[
+  == Comparison of DFT and FFT
+  #table(
+  columns: (1fr, auto, auto, auto),
+  inset: 10pt,
+  //align: [4,3],
+  rows: (4),
+  [size of n], [*DFT Directly*\ $4 N^2$], [*FFT*\ $2 N log N$], [speedup],
+  
+  [2\ 4\ 8],[16\ 64\ 256],[4\ 16\ 48], [4\ 4\ 5],
+  
+  [1024\ 65,536],[4,194,304\ $1.7 dot 10^10$],[20,480\ $2.1 dot 10^6$], [205\ $~10^4$]
+  
+ 
+)
+]
 
+#slide[
+  == limitations of FFT algorithms
+  
+]
 #focus-slide[
   _Focus!_
 
