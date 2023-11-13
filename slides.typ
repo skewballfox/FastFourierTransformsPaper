@@ -172,10 +172,7 @@
   return result
 ]
 
-#slide[
-  == Applications in Computer Science
 
-]
 #focus-slide[
   _Focus!_
 
