@@ -5,9 +5,150 @@
 #set text(font: "Inria Sans")
 
 #show: simple-theme.with(footer: [Simple slides])
+#title-slide[
+  = Part1
+  = Ergonomic Systems Programming
+  #v(2em)
+  == Comparing the developer experience of Rust and C for Systems programming
+]
+
+#slide[
+  == What is Systems Programming?
+  - Software that either directly interacts with hardware or is close to the hardware.
+  - Software that provides services to other software
+  #pdfpc.speaker-note("Examples: Operating Systems, device drivers, embedded systems, databases, browsers, computational libraries, etc.")
+]
+
+
+#slide[
+  == What is Developer Experience (DevX)?
+  #figure(
+    image(".attachments/Pasted image 20231124170829.png", width: 53%),
+    caption: [
+      Core dimensions of DevX @nodaDevExWhatActually2023
+    ]
+  )
+  #pdfpc.speaker-note(```md
+  - Feedback loops -- the speed and quality of responses to actions performed
+  - Cognitive load -- the amount of mental processing required to perform a task
+  - Flow State -- the ability to be fully immersed in a task
+
+  These are effected by the language, the tooling, and the ecosystem. While there are organizational factors that can effect these, they are outside the scope of this talk
+  
+  ```)
+]
+
+#slide[
+  == What is Rust?
+  - A systems programming language that is memory safe, performant, and has a focus on developer experience
+  - It uses the concepts of ownership and borrowing to ensure memory safety at compile time, without the need for a garbage collector 
+  - support for testing, documentation, and package management are built into the language
+  #pdfpc.speaker-note(```md
+  - Compiled programs are statically linked, so they can be distributed as a single binary
+  - Performance is comparable to C and C++
+  - The process of publishing a package is built into cargo, and documentation is generated automatically
+  - Cargo is extensible, so the community often adds custom subcommands for tasks related to rust development
+  ```)
+]
+
+#slide[
+  == Why is this important?
+  - Systems programming is important for the development of software that is critical to society
+  - The developer experience of a language effects not only the productivity of the developers, but also the quality of the software
+  - Speaking from personal experience, The likelihood of starting a project in a language is inversely proportional to the difficulty of setting up a development environment
+  #pdfpc.speaker-note(```md
+  - Let's ignore the fact that Rust is memory safe for a moment, and the statistics that show that memory safety bugs are the most common cause of security vulnerabilities in software
+  - If a language is difficult to use, developers will be less productive, and will be more likely to make mistakes
+  - If humans have a finite cognitive capacity, and a language incurs a higher cognitive burden, then less of that capacity is available for the task at hand
+  - rust has a way of lowering the barrier to entry for developers in this space, and it's worth looking at how it does that
+  ```)
+]
+
+#slide[
+  == Research Questions
+  - What development friction exist for developers working on systems programming projects, such as the linux kernel?
+  - How does Rust's language design effect the cognitive load of developers in systems programming?
+  - How does the workflow (use of tools for common task) differ between the two langauges?
+  #pdfpc.speaker-note(```md
+  - The First question aims to get a better understanding of the problems in this space, such as onboarding new developers
+  - The second question aims to understand how the language itself effects developer velocity
+  - The third attempts to compare the tooling, the level of integration, and ecosystem between the two languages
+  ```)
+]
+
+#slide[
+  == Problems with the Research Questions
+  - it was difficult to find papers that examined the developer experience of C specifically
+  - The scope of my investigation turned out to be both too broad and too narrow, because the variety of the problem space
+  #pdfpc.speaker-note(```md
+  - One problem I ran into early on is regardless of the search engine used, using C and developer experience tended to return results related to the experience level of developers. This improved once I started using terms like "onboarding" and "cyclomatic complexity"
+  - Systems programming is rarely used as a term in research papers, so I had to narrow it down by using terms such as "kernel", "embedded", "drivers", "browsers", etc.
+  - Furthermore, finding papers that intersected developer experience and one of those terms was difficult
+  - It would have been easier if I was using more non-academic sources, such as developer blogs, though I wanted to avoid that as much as possible
+  ```)
+]
+
+#slide[
+  == Included Papers
+
+]
+
+#slide[
+  == Demographics of the Papers
+
+]
+#slide[
+  == RQ1: Developer Friction in Systems Programming
+  - high cognitive burden to ensure correctness
+  - Prerequisite knowledge and experience is often irreplaceable
+  - Static analysis tools require tuning per application, and they often have to assume correctness of dependencies@nosedaRustSecureIoT2022
+  - oboarding new developers is often an anxiety ridden process for existing maintainers @traceyGradingCurveHow2023
+  - for HPC, it's hard to write code that is scalable and maintainable@costanzoPerformanceVsProgramming2021
+  #pdfpc.speaker-note(```md
+  - Least covered Question, it was difficult to identify sources of friction unique to systems programming.
+  - all papers gave the impression of high cognitive burden and requirement of experience
+  - a paper comparing C and rust for secure IoT development mentioned the limitations of static analysis tools in c and C++
+  - paper comparing vulnerabilities in first commmits between rust and C++ talked about the onboarding process
+  ```)
+]
+
+#slide[
+  == RQ2: How does rust design affect DevEx?
+  - The initial learning curve is much steeper than C.
+  - Concept of Ownership and lifetimes relatively novel
+  - It's expression based, hybrid between functional and imperative
+  - It isn't (fully) object oriented
+  
+  #pdfpc.speaker-note(```md
+  - there were languages that use ownership before (cyclone), but this is most users first encounter
+  - part of the thing new users struggle with is that it is heavily influenced by functional programming 
+  - furthermore, attempting to do things in an object oriented way often leads to fights with the borrow checker 
+  ```)
+]
+
+#slide[
+  == RQ2 pt 2
+  - In the context of embedded systems, Rust's type system allows for moving more verification of correct implementation to compile time
+  ```rs
+  fn uart_init(baudrate: u32, 
+                tx: GpioOutput, rx: GpioInput) -> Uart {...}
+  fn gpio_init_output(pin: GpioUninit) -> GpioOutput {...}
+  ```
+  #pdfpc.speaker-note(```md
+  - a UART driver at initilization would require the gpio
+   pin to already be initialized. 
+  - in this example, as the GpiOutput type is created by gpio_init_output, the developer is forced to initialize
+  the gpio output pin prior to 
+  ```)
+
+]
+#slide[
+  
+  
+]
 
 #title-slide[
-  = Fast Fourier Transforms
+  = Fast Fourier Transform
   #v(2em)
 
   Joshua Ferguson
@@ -227,5 +368,5 @@
 
 #slide[
   = Sources
-  #bibliography("refs.bib")
+  #bibliography("MastersExam.bib")
 ]

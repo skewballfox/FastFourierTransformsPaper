@@ -1,0 +1,429 @@
+@article{arditoEvaluationRustCode2021,
+  title = {Evaluation of {{Rust}} Code Verbosity, Understandability and Complexity},
+  author = {Ardito, Luca and Barbato, Luca and Coppola, Riccardo and Valsesia, Michele},
+  year = {2021},
+  month = feb,
+  journal = {PeerJ Computer Science},
+  volume = {7},
+  pages = {e406},
+  issn = {2376-5992},
+  doi = {10.7717/peerj-cs.406},
+  urldate = {2023-11-24},
+  abstract = {Rust is an innovative programming language initially implemented by Mozilla, developed to ensure high performance, reliability, and productivity. The final purpose of this study consists of applying a set of common static software metrics to programs written in Rust to assess the verbosity, understandability, organization, complexity, and maintainability of the language. To that extent, nine different implementations of algorithms available in different languages were selected. We computed a set of metrics for Rust, comparing them with the ones obtained from C and a set of object-oriented languages: C++, Python, JavaScript, TypeScript. To parse the software artifacts and compute the metrics, it was leveraged a tool called               rust-code-analysis               that was extended with a software module, written in Python, with the aim of uniforming and comparing the results. The Rust code had an average verbosity in terms of the raw size of the code. It exposed the most structured source organization in terms of the number of methods. Rust code had a better Cyclomatic Complexity, Halstead Metrics, and Maintainability Indexes than C and C++ but performed worse than the other considered object-oriented languages. Lastly, the Rust code exhibited the lowest COGNITIVE complexity of all languages. The collected measures prove that the Rust language has average complexity and maintainability compared to a set of popular languages. It is more easily maintainable and less complex than the C and C++ languages, which can be considered syntactically similar. These results, paired with the memory safety and safe concurrency characteristics of the language, can encourage wider adoption of the language of Rust in substitution of the C language in both the open-source and industrial environments.},
+  langid = {english},
+  file = {/home/Daedalus/Zotero/storage/8F8NQ6M4/peerj-cs-406.pdf;/home/Daedalus/Zotero/storage/YEZ6QLFD/Ardito et al. - 2021 - Evaluation of Rust code verbosity, understandabili.pdf}
+}
+
+@article{astrauskasHowProgrammersUse2020,
+  title = {How Do Programmers Use Unsafe Rust?},
+  author = {Astrauskas, Vytautas and Matheja, Christoph and Poli, Federico and M{\"u}ller, Peter and Summers, Alexander J.},
+  year = {2020},
+  month = nov,
+  journal = {Proceedings of the ACM on Programming Languages},
+  volume = {4},
+  number = {OOPSLA},
+  pages = {136:1--136:27},
+  doi = {10.1145/3428204},
+  urldate = {2023-10-27},
+  abstract = {Rust's ownership type system enforces a strict discipline on how memory locations are accessed and shared. This discipline allows the compiler to statically prevent memory errors, data races, inadvertent side effects through aliasing, and other errors that frequently occur in conventional imperative programs. However, the restrictions imposed by Rust's type system make it difficult or impossible to implement certain designs, such as data structures that require aliasing (e.g. doubly-linked lists and shared caches). To work around this limitation, Rust allows code blocks to be declared as unsafe and thereby exempted from certain restrictions of the type system, for instance, to manipulate C-style raw pointers. Ensuring the safety of unsafe code is the responsibility of the programmer. However, an important assumption of the Rust language, which we dub the Rust hypothesis, is that programmers use Rust by following three main principles: use unsafe code sparingly, make it easy to review, and hide it behind a safe abstraction such that client code can be written in safe Rust. Understanding how Rust programmers use unsafe code and, in particular, whether the Rust hypothesis holds is essential for Rust developers and testers, language and library designers, as well as tool developers. This paper studies empirically how unsafe code is used in practice by analysing a large corpus of Rust projects to assess the validity of the Rust hypothesis and to classify the purpose of unsafe code. We identify queries that can be answered by automatically inspecting the program's source code, its intermediate representation MIR, as well as type information provided by the Rust compiler; we complement the results by manual code inspection. Our study supports the Rust hypothesis partially: While most unsafe code is simple and well-encapsulated, unsafe features are used extensively, especially for interoperability with other languages.},
+  keywords = {empirical study,Rust,Rust hypothesis,unsafe code},
+  file = {/home/Daedalus/Zotero/storage/HGNXAUKZ/Astrauskas et al. - 2020 - How do programmers use unsafe rust.pdf}
+}
+
+@inproceedings{balasubramanianSystemProgrammingRust2017,
+  title = {System {{Programming}} in {{Rust}}: {{Beyond Safety}}},
+  shorttitle = {System {{Programming}} in {{Rust}}},
+  booktitle = {Proceedings of the 16th {{Workshop}} on {{Hot Topics}} in {{Operating Systems}}},
+  author = {Balasubramanian, Abhiram and Baranowski, Marek S. and Burtsev, Anton and Panda, Aurojit and Rakamari{\'c}, Zvonimir and Ryzhyk, Leonid},
+  year = {2017},
+  month = may,
+  pages = {156--161},
+  publisher = {{ACM}},
+  address = {{Whistler BC Canada}},
+  doi = {10.1145/3102980.3103006},
+  urldate = {2023-10-30},
+  isbn = {978-1-4503-5068-6},
+  langid = {english},
+  file = {/home/Daedalus/Zotero/storage/REFQJ72E/Balasubramanian et al. - 2017 - System Programming in Rust Beyond Safety.pdf}
+}
+
+@inproceedings{costanzoPerformanceVsProgramming2021,
+  title = {Performance vs {{Programming Effort}} between {{Rust}} and {{C}} on {{Multicore Architectures}}: {{Case Study}} in {{N-Body}}},
+  shorttitle = {Performance vs {{Programming Effort}} between {{Rust}} and {{C}} on {{Multicore Architectures}}},
+  booktitle = {2021 {{XLVII Latin American Computing Conference}} ({{CLEI}})},
+  author = {Costanzo, Manuel and Rucci, Enzo and Naiouf, Marcelo and Giusti, Armando De},
+  year = {2021},
+  month = oct,
+  pages = {1--10},
+  doi = {10.1109/CLEI53233.2021.9640225},
+  abstract = {Historically, Fortran and C have been the default programming languages in High-Performance Computing (HPC). In both, programmers have primitives and functions available that allow manipulating system memory and interacting directly with the underlying hardware, resulting in efficient code in both response times and resource use. On the other hand, it is a real challenge to generate code that is maintainable and scalable over time in these types of languages. In 2010, Rust emerged as a new programming language designed for concurrent and secure applications, which adopts features of procedural, object-oriented and functional languages. Among its design principles, Rust is aimed at matching C in terms of efficiency, but with increased code security and productivity. This paper presents a comparative study between C and Rust in terms of performance and programming effort, selecting as a case study the simulation of N computational bodies (N-Body), a popular problem in the HPC community. Based on the experimental work, it was possible to establish that Rust is a language that reduces programming effort while maintaining acceptable performance levels, meaning that it is a possible alternative to C for HPC.},
+  keywords = {C,Codes,Computer languages,Memory management,Multicore processing,N-Body,Object oriented modeling,Parallel Computing,Performance comparsion,Productivity,Programming,Programming Cost,Rust},
+  file = {/home/Daedalus/Zotero/storage/VJS998QB/Costanzo et al. - 2021 - Performance vs Programming Effort between Rust and.pdf}
+}
+
+@misc{davisDeveloperExperienceWhat2023,
+  title = {Developer Experience: {{What}} Is It and Why Should You Care?},
+  shorttitle = {Developer Experience},
+  author = {Davis, Gwen},
+  year = {2023},
+  month = jun,
+  journal = {The GitHub Blog},
+  urldate = {2023-09-15},
+  abstract = {Explore how investing in a better developer experience frees developers to do what matters most: building great software.},
+  langid = {american}
+}
+
+@misc{DeveloperExperienceDevEx,
+  title = {Developer {{Experience}} ({{DevEx}}) - {{Code With Engineering Playbook}}},
+  urldate = {2023-09-15},
+  abstract = {ISE Code With Engineering Playbook},
+  howpublished = {https://microsoft.github.io/code-with-engineering-playbook/developer-experience/}
+}
+
+@inproceedings{fagerholmDeveloperExperienceConcept2012,
+  title = {Developer Experience: {{Concept}} and Definition},
+  shorttitle = {Developer Experience},
+  booktitle = {2012 {{International Conference}} on {{Software}} and {{System Process}} ({{ICSSP}})},
+  author = {Fagerholm, Fabian and M{\"u}nch, J{\"u}rgen},
+  year = {2012},
+  month = jun,
+  pages = {73--77},
+  doi = {10.1109/ICSSP.2012.6225984},
+  urldate = {2023-10-27},
+  abstract = {New ways of working such as globally distributed development or the integration of self-motivated external developers into software ecosystems will require a better and more comprehensive understanding of developers' feelings, perceptions, motivations and identification with their tasks in their respective project environments. User experience is a concept that captures how persons feel about products, systems and services. It evolved from disciplines such as interaction design and usability to a much richer scope that includes feelings, motivations, and satisfaction. Similarly, developer experience could be defined as a means for capturing how developers think and feel about their activities within their working environments, with the assumption that an improvement of the developer experience has positive impacts on characteristics such as sustained team and project performance. This article motivates the importance of developer experience, sketches related approaches from other domains, proposes a definition of developer experience that is derived from similar concepts in other domains, describes an ongoing empirical study to better understand developer experience, and finally gives an outlook on planned future research activities.}
+}
+
+@inproceedings{fakhouryEffectPoorSource2018,
+  title = {The {{Effect}} of {{Poor Source Code Lexicon}} and {{Readability}} on {{Developers}}' {{Cognitive Load}}},
+  booktitle = {2018 {{IEEE}}/{{ACM}} 26th {{International Conference}} on {{Program Comprehension}} ({{ICPC}})},
+  author = {Fakhoury, Sarah and Ma, Yuzhan and Arnaoudova, Venera and Adesope, Olusola},
+  year = {2018},
+  month = may,
+  pages = {286--28610},
+  issn = {2643-7171},
+  abstract = {It has been well documented that a large portion of the cost of any software lies in the time spent by developers in understanding a program's source code before any changes can be undertaken. One of the main contributors to software comprehension, by subsequent developers or by the authors themselves, has to do with the quality of the lexicon, (i.e., the identifiers and comments) that is used by developers to embed domain concepts and to communicate with their teammates. In fact, previous research shows that there is a positive correlation between the quality of identifiers and the quality of a software project. Results suggest that poor quality lexicon impairs program comprehension and consequently increases the effort that developers must spend to maintain the software. However, we do not yet know or have any empirical evidence, of the relationship between the quality of the lexicon and the cognitive load that developers experience when trying to understand a piece of software. Given the associated costs, there is a critical need to empirically characterize the impact of the quality of the lexicon on developers' ability to comprehend a program. In this study, we explore the effect of poor source code lexicon and readability on developers' cognitive load as measured by a cutting-edge and minimally invasive functional brain imaging technique called functional Near Infrared Spectroscopy (fNIRS). Additionally, while developers perform software comprehension tasks, we map cognitive load data to source code identifiers using an eye tracking device. Our results show that the presence of linguistic antipatterns in source code significantly increases the developers' cognitive load.},
+  keywords = {biometrics,cognitive load,eyetracking,fNIRS,program comprehension,Source code lexicon}
+}
+
+@inproceedings{fultonBenefitsDrawbacksAdopting2021,
+  title = {Benefits and {{Drawbacks}} of {{Adopting}} a {{Secure Programming Language}}: {{Rust}} as a {{Case Study}}},
+  shorttitle = {Benefits and {{Drawbacks}} of {{Adopting}} a {{Secure Programming Language}}},
+  booktitle = {Seventeenth {{Symposium}} on {{Usable Privacy}} and {{Security}} ({{SOUPS}} 2021)},
+  author = {Fulton, Kelsey R. and Chan, Anna and Votipka, Daniel and Hicks, Michael and Mazurek, Michelle L.},
+  year = {2021},
+  pages = {597--616},
+  urldate = {2023-09-16},
+  isbn = {978-1-939133-25-0},
+  langid = {english},
+  file = {/home/Daedalus/Zotero/storage/C5FLJFYA/Fulton et al. - 2021 - Benefits and Drawbacks of Adopting a Secure Progra.pdf}
+}
+
+@article{graziotin2015you,
+  title = {How Do You Feel, Developer? {{An}} Explanatory Theory of the Impact of Affects on Programming Performance},
+  author = {Graziotin, Daniel and Wang, Xiaofeng and Abrahamsson, Pekka},
+  year = {2015},
+  journal = {PeerJ Computer Science},
+  volume = {1},
+  pages = {e18},
+  publisher = {{PeerJ Inc.}},
+  file = {/home/Daedalus/Zotero/storage/2WBQAG46/Graziotin et al. - 2015 - How do you feel, developer An explanatory theory .pdf}
+}
+
+@misc{GuidelinesPerformingSystematic,
+  title = {Guidelines for Performing {{Systematic Literature Reviews}} in {{Software Engineering}} | {{BibSonomy}}},
+  urldate = {2023-09-17},
+  abstract = {The blue social bookmark and publication sharing system.},
+  howpublished = {https://www.bibsonomy.org/bibtex/23f4b30c0fe1435b642467af4cca120ef/jpmor}
+}
+
+@article{gulati2022can,
+  title = {Can {{Rust}} Finally Replace {{C}}?: {{A}} Qualitative and Quantitative Analysis},
+  author = {Gulati, Aryan},
+  year = {2022},
+  journal = {Amity Journal of Computational Sciences},
+  volume = {6},
+  number = {2},
+  file = {/home/Daedalus/Zotero/storage/L2M4PN3G/Gulati - 2022 - Can Rust finally replace C A qualitative and qua.pdf}
+}
+
+@inproceedings{huComprehensivenessAutomationLifecycle2022,
+  title = {Comprehensiveness, {{Automation}} and {{Lifecycle}}: {{A New Perspective}} for {{Rust Security}}},
+  shorttitle = {Comprehensiveness, {{Automation}} and {{Lifecycle}}},
+  booktitle = {2022 {{IEEE}} 22nd {{International Conference}} on {{Software Quality}}, {{Reliability}} and {{Security}} ({{QRS}})},
+  author = {Hu, Shuang and Hua, Baojian and Wang, Yang},
+  year = {2022},
+  month = dec,
+  pages = {982--991},
+  issn = {2693-9177},
+  doi = {10.1109/QRS57517.2022.00102},
+  urldate = {2023-10-28},
+  abstract = {Rust is an emerging programming language designed for secure system programming that provides both security guarantees and runtime efficiency and has been increasingly used to build software infrastructures such as OS kernels, web browsers, databases, and blockchains. To support arbitrary low-level programming and to provide more flexibility, Rust introduced the unsafe feature, which may lead to security issues such as memory or concurrency vulnerabilities. Although there have been a significant number of studies on Rust security utilizing diverse techniques such as program analysis, fuzzing, privilege separation, and formal verification, existing studies suffer from three problems: 1) they only partially solve specific security issues but lack comprehensiveness; 2) most of them require manual interventions or annotations thus are not automated; and 3) they only cover a specific phase instead of the full lifecycle.In this perspective paper, we first survey current research progress on Rust security from 5 aspects, namely, empirical studies, vulnerability prevention, vulnerability detection, vulnerability rectification, and formal verification, and note the limitations of current studies. Then, we point out key challenges for Rust security. Finally, we offer our vision of a Rust security infrastructure guided by three principles: Comprehensiveness, Automation, and Lifecycle (CAL). Our work intends to promote the Rust security studies by proposing new research challenges and future research directions.}
+}
+
+@article{nadeemHumancenteredApproachStaticanalysisdriven2022a,
+  title = {Human-Centered Approach to Static-Analysis-Driven Developer Tools},
+  author = {Nadeem, Ayman},
+  year = {2022},
+  month = mar,
+  journal = {Communications of the ACM},
+  volume = {65},
+  number = {3},
+  pages = {38--45},
+  issn = {0001-0782, 1557-7317},
+  doi = {10.1145/3486597},
+  urldate = {2023-09-15},
+  abstract = {The future depends on good HCI.},
+  langid = {english}
+}
+
+@article{nodaDevExWhatActually2023,
+  title = {{{DevEx}}: {{What Actually Drives Productivity}}: {{The}} Developer-Centric Approach to Measuring and Improving Productivity},
+  shorttitle = {{{DevEx}}},
+  author = {Noda, Abi and Storey, Margaret-Anne and Forsgren, Nicole and Greiler, Michaela},
+  year = {2023},
+  month = may,
+  journal = {Queue},
+  volume = {21},
+  number = {2},
+  pages = {Pages 20:35--Pages 20:53},
+  issn = {1542-7730},
+  doi = {10.1145/3595878},
+  urldate = {2023-10-27},
+  abstract = {Developer experience focuses on the lived experience of developers and the points of friction they encounter in their everyday work. In addition to improving productivity, DevEx drives business performance through increased efficiency, product quality, and employee retention. This paper provides a practical framework for understanding DevEx, and presents a measurement framework that combines feedback from developers with data about the engineering systems they interact with. These two frameworks provide leaders with clear, actionable insights into what to measure and where to focus in order to improve developer productivity.},
+  file = {/home/Daedalus/Zotero/storage/BPSH7SSW/Noda et al. - 2023 - DevEx What Actually Drives Productivity The deve.pdf}
+}
+
+@inproceedings{nosedaRustSecureIoT2022,
+  title = {Rust for Secure {{IoT}} Applications : Why {{C}} Is Getting Rusty},
+  shorttitle = {Rust for Secure {{IoT}} Applications},
+  booktitle = {Embedded {{World Conference}}, {{Nuremberg}}, {{Germany}}, 21-23 {{June}} 2022},
+  author = {Noseda, Mario and Frei, Fabian and R{\"u}st, Andreas and K{\"u}nzli, Simon},
+  year = {2022},
+  month = jun,
+  publisher = {{WEKA}},
+  doi = {10.21256/zhaw-25046},
+  urldate = {2023-09-15},
+  abstract = {Memory corruption is still the most used type of exploit in today's malware landscape. Human error inevitably introduces memory vulnerabilities into software by using memory-unsafe languages like C and C++, affecting not only security but also safety, dependability, and even basic functionality of devices. The Rust language guarantees memory safety without a garbage collector, promises comparable performance to C/C++, and allows for gradual extension of existing codebases by using its foreign function interface. This report presents the risks of having memory vulnerabilities in embedded applications, what a switch to Rust looks like, how the development experiences differ between Rust and C/C++, and if there are significant differences in performance.},
+  copyright = {Licence according to publishing contract},
+  langid = {english},
+  file = {/home/Daedalus/Zotero/storage/J9YE5T9X/Noseda et al. - 2022 - Rust for secure IoT applications  why C is gettin.pdf}
+}
+
+@incollection{oikawaExperienceDevelopingFAT2023,
+  title = {The {{Experience}} of~{{Developing}} a~{{FAT File System Module}} in~the~{{Rust Programming Language}}},
+  booktitle = {Software {{Engineering}}, {{Artificial Intelligence}}, {{Networking}} and {{Parallel}}/{{Distributed Computing}}},
+  author = {Oikawa, Shuichi},
+  editor = {Lee, Roger},
+  year = {2023},
+  series = {Studies in {{Computational Intelligence}}},
+  pages = {45--58},
+  publisher = {{Springer International Publishing}},
+  address = {{Cham}},
+  doi = {10.1007/978-3-031-19604-1_4},
+  urldate = {2023-09-27},
+  abstract = {The Linux kernel is a heart of the operating system, and provides the abstractions of hardware resources and manages them to be used efficiently and effectively by application programs. The operating system kernel has been programmed by the C programming language. It has been a major system programming language for a long time due to its efficiency and simplicity. Recently, there is a move towards introducing the Rust programming language to the Linux kernel for the type and memory safety; thus, it is meaningful to explore the possibility of utilizing Rust to program Linux kernel modules. This paper describes the experience of developing the FAT file system as a kernel module in Rust employing Rust for Linux as a basis of the development. We performed the experiments to measure its execution costs, and found that its performance is comparable with the original FAT file system written in C.},
+  isbn = {978-3-031-19604-1},
+  langid = {english},
+  keywords = {Linux,Operating systems,Programming languages,Rust,Systems software}
+}
+
+@inproceedings{rooneyEvaluatingFFTPerformance2023,
+  title = {Evaluating {{FFT}} Performance of the {{C}} and {{Rust Languages}} on {{Raspberry Pi}} Platforms},
+  booktitle = {2023 57th {{Annual Conference}} on {{Information Sciences}} and {{Systems}} ({{CISS}})},
+  author = {Rooney, Michael P. and Matthews, Suzanne J.},
+  year = {2023},
+  month = mar,
+  pages = {1--6},
+  doi = {10.1109/CISS56502.2023.10089631},
+  urldate = {2023-10-30},
+  abstract = {The Fast Fourier Transform (FFT) is perhaps the most consequential algorithm for real-time applications for digital signals processing. Given the increased importance of securing devices on the edge, memory safety becomes an increasing concern for FFT applications. This work compares the performance of four FFT implementations written in the C and the Rust languages, benchmarked on the Raspberry Pi 4 and the Raspberry Pi Zero W platforms. Our results suggest that FFTs implemented in Rust are up to 45\% more energy efficient than those written in C, and that Rust FFT implementations execute up to 37\% faster than corresponding FFTs implemented in C. These results suggest that real-time application designers should take a closer look at the Rust language to enhance the safety and performance of their FFT applications.},
+  file = {/home/Daedalus/Zotero/storage/2BKYFKDK/Rooney and Matthews - 2023 - Evaluating FFT performance of the C and Rust Langu.pdf}
+}
+
+@misc{saoirseWhyAsyncRust2023,
+  title = {Why Async {{Rust}}?},
+  author = {Saoirse},
+  year = {2023},
+  month = oct,
+  journal = {Without boats, dreams dry up},
+  urldate = {2023-10-16},
+  howpublished = {https://without.boats/blog/why-async-rust/}
+}
+
+@phdthesis{sudwojRustProgrammingLanguage2020,
+  type = {Bachelor {{Thesis}}},
+  title = {Rust Programming Language in the High-Performance Computing Environment},
+  author = {Sudwoj, Michal},
+  year = {2020},
+  month = sep,
+  doi = {10.3929/ethz-b-000474922},
+  urldate = {2023-09-15},
+  abstract = {Fortran and C++ have traditionally been the languages of choice for high-performance computing (HPC) applications. However, they are both over 35 years old, and do not offer much in terms of user-friendliness or memory safety. Rust is an emergent new systems language, aiming to be performant while offering such safety and usability, as well as bundling tools that a modern developer needs.  We compare multiple implementations of a finite difference stencil code, and show that idiomatically written Rust programs can be just as performant as their Fortran or C++ counterparts, while offering the above-mentioned advantages.},
+  copyright = {http://rightsstatements.org/page/InC-NC/1.0/},
+  langid = {english},
+  school = {ETH Zurich},
+  file = {/home/Daedalus/Zotero/storage/IAICPK5C/Sudwoj - 2020 - Rust programming language in the high-performance .pdf}
+}
+
+@misc{SystemsProgrammingDefinition,
+  title = {Systems Programming | {{Definition}} \& {{Facts}} | {{Britannica}}},
+  urldate = {2023-09-17},
+  abstract = {Systems programming, development of computer software that is part of a computer operating system or other control program, especially as used in computer networks. Systems programming covers data and program management, including operating systems, control programs, network software, and database},
+  howpublished = {https://www.britannica.com/technology/systems-programming},
+  langid = {english}
+}
+
+@inproceedings{traceyGradingCurveHow2023,
+  title = {Grading on a {{Curve}}: {{How Rust}} Can {{Facilitate New Contributors}} While {{Decreasing Vulnerabilities}}},
+  booktitle = {2023 {{IEEE Secure Development Conference}} ({{SecDev}})},
+  author = {Tracey, J. and Goldberg, I.},
+  year = {2023},
+  month = oct,
+  pages = {26--36},
+  publisher = {{IEEE Computer Society}},
+  address = {{Los Alamitos, CA, USA}},
+  doi = {10.1109/SecDev56634.2023.00016},
+  abstract = {New contributors are critical to open source projects. Without them, the project will eventually atrophy and become inactive, or its experienced contributors will bias the future directions the project takes. However, new contributors can also bring a greater risk of introducing vulnerable code. For projects that have a need for both secure implementations and a strong, diverse contributor community, this conflict is a pressing issue. One avenue being pursued that could facilitate this goal is rewriting components of C or C++ code in Rust{\textendash} a language designed to apply to the same domains as C and C++, but with greater safety guarantees. Seeking to answer whether Rust can help keep new contributors from introducing vulnerabilities, and therefore ease the burden on maintainers, we examine the Oxidation project from Mozilla, which has replaced components of the Firefox web browser with equivalents written in Rust. We use the available data from these projects to derive parameters for a novel application of learning curves, which we use to estimate the proportion of commits that introduce vulnerabilities from new contributors in a manner that is directly comparable. We find that despite concerns about ease of use, first-time contributors to Rust projects are about 70 times less likely to introduce vulnerabilities than first-time contributors to C++ projects. We also found that the rate of new contributors increased overall after switching to Rust, implying that this decrease in vulnerabilities from new contributors does not result from a smaller pool of more skilled developers, and that Rust can in fact facilitate new contributors. In the process, we also qualitatively analyze the Rust vulnerabilities in these projects, and measure the efficacy of the common SZZ algorithm for identifying bug-inducing commits from their fixes.},
+  keywords = {atrophy,c++ languages,codes,computer languages,oxidation,pressing,switches},
+  file = {/home/Daedalus/Zotero/storage/22GPGPMT/Tracey and Goldberg - 2023 - Grading on a Curve How Rust can Facilitate New Co.pdf}
+}
+
+@misc{TrackingIssueParallel,
+  title = {Tracking {{Issue}} for {{Parallel Rustc Front-end}} {$\cdot$} {{Issue}} \#113349 {$\cdot$} Rust-Lang/Rust},
+  journal = {GitHub},
+  urldate = {2023-10-31},
+  abstract = {This is a tracking issue for Parallel Rustc Front-end This feature will improve compilation speed by parallelizing the process of rustc front end (before the codegen which has been parallelized). T...},
+  howpublished = {https://github.com/rust-lang/rust/issues/113349},
+  langid = {english}
+}
+
+@article{xuMemorySafetyChallengeConsidered2021,
+  title = {Memory-{{Safety Challenge Considered Solved}}? {{An In-Depth Study}} with {{All Rust CVEs}}},
+  shorttitle = {Memory-{{Safety Challenge Considered Solved}}?},
+  author = {Xu, Hui and Chen, Zhuangbin and Sun, Mingshen and Zhou, Yangfan and Lyu, Michael R.},
+  year = {2021},
+  month = sep,
+  journal = {ACM Transactions on Software Engineering and Methodology},
+  volume = {31},
+  number = {1},
+  pages = {3:1--3:25},
+  issn = {1049-331X},
+  doi = {10.1145/3466642},
+  urldate = {2023-10-28},
+  abstract = {Rust is an emerging programming language that aims at preventing memory-safety bugs without sacrificing much efficiency. The claimed property is very attractive to developers, and many projects start using the language. However, can Rust achieve the memory-safety promise? This article studies the question by surveying 186 real-world bug reports collected from several origins, which contain all existing Rust common vulnerability and exposures (CVEs) of memory-safety issues by 2020-12-31. We manually analyze each bug and extract their culprit patterns. Our analysis result shows that Rust can keep its promise that all memory-safety bugs require unsafe code, and many memory-safety bugs in our dataset are mild soundness issues that only leave a possibility to write memory-safety bugs without unsafe code. Furthermore, we summarize three typical categories of memory-safety bugs, including automatic memory reclaim, unsound function, and unsound generic or trait. While automatic memory claim bugs are related to the side effect of Rust newly-adopted ownership-based resource management scheme, unsound function reveals the essential challenge of Rust development for avoiding unsound code, and unsound generic or trait intensifies the risk of introducing unsoundness. Based on these findings, we propose two promising directions toward improving the security of Rust development, including several best practices of using specific APIs and methods to detect particular bugs involving unsafe code. Our work intends to raise more discussions regarding the memory-safety issues of Rust and facilitate the maturity of the language.},
+  keywords = {common vulnerability and exposures,memory-safety bugs,Rust},
+  file = {/home/Daedalus/Zotero/storage/AQ44XPBY/Xu et al. - 2021 - Memory-Safety Challenge Considered Solved An In-D.pdf}
+}
+
+@inproceedings{chiFastFourierConvolution2020,
+  title     = {Fast {{Fourier Convolution}}},
+  booktitle = {Advances in {{Neural Information Processing Systems}}},
+  author    = {Chi, Lu and Jiang, Borui and Mu, Yadong},
+  year      = {2020},
+  volume    = {33},
+  pages     = {4479--4488},
+  publisher = {{Curran Associates, Inc.}},
+  urldate   = {2023-11-08},
+  abstract  = {Vanilla convolutions in modern deep networks are known to operate locally and at fixed scale (e.g., the widely-adopted 3*3 kernels in image-oriented tasks). This causes low efficacy in connecting two distant locations in the network. In this work, we propose a novel convolutional operator dubbed as fast Fourier convolution (FFC), which has the main hallmarks of non-local receptive fields and cross-scale fusion within the convolutional unit. According to spectral convolution theorem in Fourier theory, point-wise update in the spectral domain globally affects all input features involved in Fourier transform, which sheds light on neural architectural design with non-local receptive field. Our proposed FFC is inspired to capsulate three different kinds of computations in a single operation unit: a local branch that conducts ordinary small-kernel convolution, a semi-global branch that processes spectrally stacked image patches, and a global branch that manipulates image-level spectrum. All branches complementarily address different scales. A multi-branch aggregation step is included in FFC for cross-scale fusion. FFC is a generic operator that can directly replace vanilla convolutions in a large body of existing networks, without any adjustments and with comparable complexity metrics (e.g., FLOPs). We experimentally evaluate FFC in three major vision benchmarks (ImageNet for image recognition, Kinetics for video action recognition, MSCOCO for human keypoint detection). It consistently elevates accuracies in all above tasks by significant margins.},
+  file      = {/home/skewballfox/Zotero/storage/GWVCN8YI/Chi et al. - 2020 - Fast Fourier Convolution.pdf}
+}
+
+@article{frigoDesignImplementationFFTW32005,
+  title   = {The {{Design}} and {{Implementation}} of {{FFTW3}}},
+  author  = {Frigo, M. and Johnson, S.G.},
+  year    = {2005},
+  month   = feb,
+  journal = {Proceedings of the IEEE},
+  volume  = {93},
+  number  = {2},
+  pages   = {216--231},
+  issn    = {0018-9219},
+  doi     = {10.1109/JPROC.2004.840301},
+  urldate = {2023-11-13},
+  file    = {/home/skewballfox/Zotero/storage/2U3PHSSD/Frigo and Johnson - 2005 - The Design and Implementation of FFTW3.pdf}
+}
+
+@inproceedings{frigoFFTWAdaptiveSoftware1998,
+  title      = {{{FFTW}}: An Adaptive Software Architecture for the {{FFT}}},
+  shorttitle = {{{FFTW}}},
+  booktitle  = {Proceedings of the 1998 {{IEEE International Conference}} on {{Acoustics}}, {{Speech}} and {{Signal Processing}}, {{ICASSP}} '98 ({{Cat}}. {{No}}.{{98CH36181}})},
+  author     = {Frigo, M. and Johnson, S.G.},
+  year       = {1998},
+  volume     = {3},
+  pages      = {1381--1384},
+  publisher  = {{IEEE}},
+  address    = {{Seattle, WA, USA}},
+  doi        = {10.1109/ICASSP.1998.681704},
+  urldate    = {2023-11-02},
+  isbn       = {978-0-7803-4428-0}
+}
+
+@article{girgisQuantitativeStudyPitfalls1980,
+  title   = {A {{Quantitative Study}} of {{Pitfalls}} in the {{FFT}}},
+  author  = {Girgis, Adly and Ham, Fredric},
+  year    = {1980},
+  month   = jul,
+  journal = {IEEE Transactions on Aerospace and Electronic Systems},
+  volume  = {AES-16},
+  number  = {4},
+  pages   = {434--439},
+  issn    = {0018-9251},
+  doi     = {10.1109/TAES.1980.308971},
+  urldate = {2023-11-02}
+}
+
+@article{heckbert1995fourier,
+  title   = {Fourier Transforms and the Fast {{Fourier}} Transform ({{FFT}}) Algorithm},
+  author  = {Heckbert, Paul},
+  year    = {1995},
+  journal = {Computer Graphics},
+  volume  = {2},
+  number  = {1995},
+  pages   = {15--463},
+  file    = {/home/skewballfox/Zotero/storage/3WBHE48E/Heckbert - 1995 - Fourier transforms and the fast Fourier transform .pdf}
+}
+
+@article{heideman1985gauss,
+  title     = {Gauss and the History of the Fast {{Fourier}} Transform},
+  author    = {Heideman, Michael T and Johnson, Don H and Burrus, C Sidney},
+  year      = {1985},
+  journal   = {Archive for history of exact sciences},
+  pages     = {265--277},
+  publisher = {{JSTOR}},
+  file      = {/home/skewballfox/Zotero/storage/X2CEY64U/Heideman et al. - 1985 - Gauss and the history of the fast Fourier transfor.pdf}
+}
+
+@inproceedings{moreland2003fft,
+  title     = {The {{FFT}} on a {{GPU}}},
+  booktitle = {Proceedings of the {{ACM SIGGRAPH}}/{{EUROGRAPHICS}} Conference on Graphics Hardware},
+  author    = {Moreland, Kenneth and Angel, Edward},
+  year      = {2003},
+  pages     = {112--119}
+}
+
+@inproceedings{rooneyEvaluatingFFTPerformance2023a,
+  title     = {Evaluating {{FFT}} Performance of the {{C}} and {{Rust Languages}} on {{Raspberry Pi}} Platforms},
+  booktitle = {2023 57th {{Annual Conference}} on {{Information Sciences}} and {{Systems}} ({{CISS}})},
+  author    = {Rooney, Michael P. and Matthews, Suzanne J.},
+  year      = {2023},
+  month     = mar,
+  pages     = {1--6},
+  doi       = {10.1109/CISS56502.2023.10089631},
+  urldate   = {2023-10-30},
+  abstract  = {The Fast Fourier Transform (FFT) is perhaps the most consequential algorithm for real-time applications for digital signals processing. Given the increased importance of securing devices on the edge, memory safety becomes an increasing concern for FFT applications. This work compares the performance of four FFT implementations written in the C and the Rust languages, benchmarked on the Raspberry Pi 4 and the Raspberry Pi Zero W platforms. Our results suggest that FFTs implemented in Rust are up to 45\% more energy efficient than those written in C, and that Rust FFT implementations execute up to 37\% faster than corresponding FFTs implemented in C. These results suggest that real-time application designers should take a closer look at the Rust language to enhance the safety and performance of their FFT applications.},
+  file      = {/home/skewballfox/Zotero/storage/2BKYFKDK/Rooney and Matthews - 2023 - Evaluating FFT performance of the C and Rust Langu.pdf}
+}
+
+@article{StructuredReviewSparse2022,
+  title    = {A Structured Review of Sparse Fast {{Fourier}} Transform Algorithms},
+  year     = {2022},
+  month    = apr,
+  journal  = {Digital Signal Processing},
+  volume   = {123},
+  pages    = {103403},
+  issn     = {1051-2004},
+  doi      = {10.1016/j.dsp.2022.103403},
+  urldate  = {2023-11-08},
+  abstract = {Discrete Fourier transform (DFT) implementation requires high computational resources and time; a computational complexity of order O(N2) for a signal\ldots},
+  langid   = {american}
+}
