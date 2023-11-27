@@ -114,7 +114,7 @@
 
 #slide[
   == RQ2: How does rust design affect DevEx?
-  - The initial learning curve is much steeper than C.
+  The initial learning curve is much steeper than C.
   - Concept of Ownership and lifetimes relatively novel
   - It's expression based, hybrid between functional and imperative
   - It isn't (fully) object oriented
@@ -122,7 +122,8 @@
   #pdfpc.speaker-note(```md
   - there were languages that use ownership before (cyclone), but this is most users first encounter
   - part of the thing new users struggle with is that it is heavily influenced by functional programming 
-  - furthermore, attempting to do things in an object oriented way often leads to fights with the borrow checker 
+  - furthermore, attempting to do things in an object oriented way often leads to fights with the borrow checker
+  - let's look at the papers mentioned in RQ1 slide
   ```)
 ]
 
@@ -138,13 +139,32 @@
   - a UART driver at initilization would require the gpio
    pin to already be initialized. 
   - in this example, as the GpiOutput type is created by gpio_init_output, the developer is forced to initialize
-  the gpio output pin prior to 
+  the gpio output pin prior to
   ```)
 
 ]
 #slide[
-  
-  
+  == RQ2 pt 3
+  - When comparing the c++ and rust implementations of the same Components, First time contributors were 70 times more likely to introduce a vulnerability in C++ than in rust
+  - This was including CVEs in rust that would not have existed in C++ because of the community's tendency to
+  report soundness bugs as CVEs
+  #pdfpc.speaker-note(```md
+  - while this is more related to memory safety, it does impact the developer experience of existing maintainers
+  - soundness bugs are violations of the memory safety guarantees of (safe) rust, it's a source of undefined behavior. These are often reported as CVEs, even though they are not security vulnerabilities, and would not be reported as such in C++
+  ```)
+]
+
+#slide[
+  == RQ2: pt 4 Cyclomatic Complexity and sundry
+  Compared against C, C++ and a few higher level languages, rust had a lower cyclomatic complexity than c, c++, but higher than languages like python and typescript
+  - rust was the most structured as measured by NOM and NEXIT metrics
+  - had the lowest COGNITIVE complexity score out of any language
+  #pdfpc.speaker-note(```md
+  - Cyclomatic complexity is a measure of the number of linearly independent paths through a program
+  - NOM number of methods, NEXIT number of exits
+  - Cognitive complexity is weighted sum of a programs
+  components, influenced by breaks in linear flow(if, match), breaks in linear flow, and nesting
+  ```)
 ]
 
 #title-slide[
