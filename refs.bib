@@ -1,3 +1,20 @@
+@inproceedings{aamirCooleyTukeyFFTMethod2005,
+  title = {On {{Cooley-Tukey FFT}} Method for Zero Padded Signals},
+  booktitle = {Proceedings of the {{IEEE Symposium}} on {{Emerging Technologies}}, 2005.},
+  author = {Aamir, K.M. and Maud, M.A. and Loan, A.},
+  year = {2005},
+  month = sep,
+  pages = {41--45},
+  doi = {10.1109/ICET.2005.1558852},
+  urldate = {2023-12-06},
+  abstract = {The classical Cooley-Tukey fast Fourier transform (FFT) algorithm has the computational cost of O(Nlog2N) where N is the length of the discrete signal. Spectrum resolution is improved through padding zeros at the tail of the discrete signal, if (p -1)N zeros are padded (where p is an integer) at the tail of the data sequence, the computational cost through FFT becomes O(pNlog2pN). This paper proposes an alternate instance of padding zeros to the data sequence that results in computational cost reduction to O(pNlog2 N). It has been noted that this modification can be used to achieve non-uniform upsampling that would zoom-in or zoom-out a particular frequency band, in addition, it may be used for pruning the spectrum, which would reduce resolution of an unimportant frequency band}
+}
+
+@article{amannahcomparative,
+  title = {On the Comparative Analysis of the Cooley-Tukey and Bluestein Numerical Fast Fourier Transforms Algorithms for Digital Signal Processing},
+  author = {Amannah, Constance Izuchukwu and Inyiama, {\relax HC}}
+}
+
 @article{amirfattahiCalculationComputationalComplexity2013,
   title = {Calculation of {{Computational Complexity}} for {{Radix-2p Fast Fourier Transform Algorithms}} for {{Medical Signals}}},
   author = {Amirfattahi, Rassoul},
@@ -11,6 +28,23 @@
   abstract = {Owing to its simplicity radix-2 is a popular algorithm to implement fast fourier transform. Radix-2p algorithms have the same order of computational complexity as higher radices algorithms, but still retain the simplicity of radix-2. By defining a new concept, twiddle factor template, in this paper, we propose a method for exact calculation of multiplicative complexity for radix-2p algorithms. The methodology is described for radix-2, radix-22 and radix-23 algorithms. Results show that radix-22 and radix-23 have significantly less computational complexity compared with radix-2. Another interesting result is that while the number of complex multiplications in radix-23 algorithm is slightly more than radix-22, the number of real multiplications for radix-23 is less than radix-22. This is because of the twiddle factors in the form of  which need less number of real multiplications and are more frequent in radix-23 algorithm.},
   pmcid = {PMC3967424},
   pmid = {24696799}
+}
+
+@article{anscombeQuietContributorCivic2003,
+  title = {Quiet {{Contributor}}: {{The Civic Career}} and {{Times}} of {{John W}}. {{Tukey}}},
+  shorttitle = {Quiet {{Contributor}}},
+  author = {Anscombe, F. R.},
+  year = {2003},
+  month = aug,
+  journal = {Statistical Science},
+  volume = {18},
+  number = {3},
+  pages = {287--310},
+  issn = {0883-4237, 2168-8745},
+  doi = {10.1214/ss/1076102417},
+  urldate = {2023-12-06},
+  abstract = {Across 60 years, John W. Tukey contributed to the advancement of democracy, peace and industry via development, application and teaching of knowledge. In his nation's service, he contributed to the Nike missile defense, U-2 spy plane, surveillance satellites in space, hydrophones in the oceans, seismic data interpretation and communications code breaking. As computer and communication pioneer, Tukey collaborated with von Neumann, Shannon and Pierce; coined "bit'' and "software''; applied statistical time series methods to processing signals; and recognized the usefulness of fast Fourier transform algorithms to digital processing of correlated data. Practical problems inspired Tukey to invent new ways to analyze data. As teacher and author, he made these available to others. Tukey advised government and industry regarding environmental quality, educational testing, the census, pharmaceutical efficacy, manufacturing quality and technologies for gathering intelligence. This paper explores the civic career, influences and philosophies of a practicing data analyst, inventor and remarkable public servant.},
+  keywords = {Alan Turing,Alfred C. Kinsey,American Philosophical Society,Analysis of variance,Arthur Burks,Bell Labs,bit,boxplot,Brockway McMillan,Brown University,census,Center for Advanced Study in the Behavioral Sciences,Central Intelligence Agency,CFCs,Charles P. Winsor,Claude E. Shannon,Daniel P. Moynihan,David C. Hoaglin,Edgar Anderson,Educational testing,Edward Purcell,Edwin Land,election returns,environmental protection,exploratory data analysis,F. J. Anscombe,fast Fourier transform,Frederick Mosteller,H. H. Goldstine,Health Effects Institute,Hendrik Bode,I. J. Good,Institute for Advanced Study,Institute for Defense Analyses,James Killian,John Archibald Wheeler,John R. Pierce,John von Neumann,Jr.,Lyman Spitzer,M. H. A. Newman,Merck,Multiple comparisons,National Security Agency,Nike missile,Norbert Wiener,one degree of freedom for nonadditivity,Oskar Morgenstern,pharmaceutical testing,Presidential Science Advisory Committee,Princeton University,R. A. Fisher,RAND,Richard Feynman,Richard Garwin,Richard Leibler,Robust estimates,Samuel S. Wilks,software,Solomon Kullback,SOSUS,Stanislaw Ulam,stem-and-leaf display,System Development Foundation,time series,U-2 spy plane,W. E. Deming,Walter Munk,William F. Friedman,William O. Baker,Xerox PARC}
 }
 
 @inproceedings{basharEfficientApproachComputation2013,
@@ -38,6 +72,17 @@
   abstract = {In this paper, improved algorithms for radix-4 and radix-8 FFT are presented. This is achieved by re-indexing a subset of the output samples resulting from the conventional decompositions in the radix-4 and radix-8 FFT algorithms. These modified radix-4 and radix-8 algorithms provide savings of more than 33\% and 42\% respectively in the number of twiddle factor evaluations or accesses to the lookup table compared to the corresponding conventional FFT algorithms without imposing any additional complexity.}
 }
 
+@book{brighamFastFourierTransform1974,
+  title = {The Fast {{Fourier}} Transform},
+  author = {Brigham, E. Oran},
+  year = {1974},
+  publisher = {{Prentice-Hall}},
+  address = {{Englewood Cliffs, N.J}},
+  isbn = {978-0-13-307496-3},
+  lccn = {QA403 .B74},
+  keywords = {Fourier transformations}
+}
+
 @misc{Cerna_Harvey,
   title = {The Fundamentals of {{FFT-based}} Signal Analysis and Measurement},
   author = {Cerna, Michael and Harvey, Audrey F},
@@ -56,6 +101,21 @@
   urldate = {2023-11-08},
   abstract = {Vanilla convolutions in modern deep networks are known to operate locally and at fixed scale (e.g., the widely-adopted 3*3 kernels in image-oriented tasks). This causes low efficacy in connecting two distant locations in the network. In this work, we propose a novel convolutional operator dubbed as fast Fourier convolution (FFC), which has the main hallmarks of non-local receptive fields and cross-scale fusion within the convolutional unit. According to spectral convolution theorem in Fourier theory, point-wise update in the spectral domain globally affects all input features involved in Fourier transform, which sheds light on neural architectural design with non-local receptive field. Our proposed FFC is inspired to capsulate three different kinds of computations in a single operation unit: a local branch that conducts ordinary small-kernel convolution, a semi-global branch that processes spectrally stacked image patches, and a global branch that manipulates image-level spectrum. All branches complementarily address different scales. A multi-branch aggregation step is included in FFC for cross-scale fusion. FFC is a generic operator that can directly replace vanilla convolutions in a large body of existing networks, without any adjustments and with comparable complexity metrics (e.g., FLOPs). We experimentally evaluate FFC in three major vision benchmarks (ImageNet for image recognition, Kinetics for video action recognition, MSCOCO for human keypoint detection). It consistently elevates accuracies in all above tasks by significant margins.},
   file = {/home/skewballfox/Zotero/storage/GWVCN8YI/Chi et al. - 2020 - Fast Fourier Convolution.pdf}
+}
+
+@article{duboisNewAlgorithmRadix31978,
+  title = {A New Algorithm for the Radix-3 {{FFT}}},
+  author = {Dubois, E. and Venetsanopoulos, A.},
+  year = {1978},
+  month = jun,
+  journal = {IEEE Transactions on Acoustics, Speech, and Signal Processing},
+  volume = {26},
+  number = {3},
+  pages = {222--225},
+  issn = {0096-3518},
+  doi = {10.1109/TASSP.1978.1163084},
+  urldate = {2023-12-06},
+  abstract = {A radix-3 FFT which has no multiplications in the three-point DFT's is introduced. It uses arithmetic with numbers of the form a + b{$\mu$}, where {$\mu$} is a complex cube root of unity. The application to fast convolution of real sequences is discussed.}
 }
 
 @article{frigoDesignImplementationFFTW32005,
@@ -153,7 +213,7 @@
   howpublished = {https://huggingface.co/learn/audio-course/chapter1/audio\_data}
 }
 
-@article{johnsonModifiedSplitRadixFFT2007,
+@article{johnsonModifiedSplitRadixFFT2007a,
   title = {A {{Modified Split-Radix FFT With Fewer Arithmetic Operations}}},
   author = {Johnson, Steven G. and Frigo, Matteo},
   year = {2007},
@@ -164,8 +224,25 @@
   pages = {111--119},
   issn = {1941-0476},
   doi = {10.1109/TSP.2006.882087},
-  urldate = {2023-12-05},
+  urldate = {2023-12-06},
   abstract = {Recent results by Van Buskirk have broken the record set by Yavne in 1968 for the lowest exact count of real additions and multiplications to compute a power-of-two discrete Fourier transform (DFT). Here, we present a simple recursive modification of the split-radix algorithm that computes the DFT with asymptotically about 6\% fewer operations than Yavne, matching the count achieved by Van Buskirk's program-generation framework. We also discuss the application of our algorithm to real-data and real-symmetric (discrete cosine) transforms, where we are again able to achieve lower arithmetic counts than previously published algorithms}
+}
+
+@inproceedings{luSpeechRecognitionUsing2020,
+  title = {Speech {{Recognition}} Using {{EfficientNet}}},
+  booktitle = {Proceedings of the 2020 5th {{International Conference}} on {{Multimedia Systems}} and {{Signal Processing}}},
+  author = {Lu, Qidong and Li, Yingying and Qin, Zhiliang and Liu, Xiaowei and Xie, Yun},
+  year = {2020},
+  month = jul,
+  series = {{{ICMSSP}} '20},
+  pages = {64--68},
+  publisher = {{Association for Computing Machinery}},
+  address = {{New York, NY, USA}},
+  doi = {10.1145/3404716.3404717},
+  urldate = {2023-12-06},
+  abstract = {Aiming at the problem of speech recognition, this paper trains the latest convolutional network model EfficientNet with better performance to improve its recognition accuracy. To improve the generalization ability of the model, data augmentation operations such as noise addition, speed adjustment, pitch change are performed on the original speech waveforms. Because timedomain waveform can hardly describe the essential characteristics of an audio clip, Mel power spectrogram and its incremental characteristics are utilized as two-dimensional network inputs to accurately display the internal information of the signal. The experimental results show that method proposed in this paper can achieve high word classification accuracy according to the confusion matrix and accuracy variation curve of verification set on Google speech commands dataset.},
+  isbn = {978-1-4503-7748-5},
+  keywords = {Data augmentation,EfficientNet,Mel power spectrogram,Speech commands dataset,Speech recognition}
 }
 
 @inproceedings{moreland2003fft,
@@ -188,6 +265,11 @@
   publisher = {{Modern Education and Computer Science Press}}
 }
 
+@article{pavanfft,
+  title = {{{FFT}} Algorithms: {{A}} Survey},
+  author = {Pavan Kumar, {\relax KM} and Jain, Priya and Ravi Kiran, S and Rohith, N and Ramamani, K}
+}
+
 @inproceedings{rooneyEvaluatingFFTPerformance2023a,
   title = {Evaluating {{FFT}} Performance of the {{C}} and {{Rust Languages}} on {{Raspberry Pi}} Platforms},
   booktitle = {2023 57th {{Annual Conference}} on {{Information Sciences}} and {{Systems}} ({{CISS}})},
@@ -199,6 +281,13 @@
   urldate = {2023-10-30},
   abstract = {The Fast Fourier Transform (FFT) is perhaps the most consequential algorithm for real-time applications for digital signals processing. Given the increased importance of securing devices on the edge, memory safety becomes an increasing concern for FFT applications. This work compares the performance of four FFT implementations written in the C and the Rust languages, benchmarked on the Raspberry Pi 4 and the Raspberry Pi Zero W platforms. Our results suggest that FFTs implemented in Rust are up to 45\% more energy efficient than those written in C, and that Rust FFT implementations execute up to 37\% faster than corresponding FFTs implemented in C. These results suggest that real-time application designers should take a closer look at the Rust language to enhance the safety and performance of their FFT applications.},
   file = {/home/skewballfox/Zotero/storage/2BKYFKDK/Rooney and Matthews - 2023 - Evaluating FFT performance of the C and Rust Langu.pdf}
+}
+
+@misc{RustfftRust,
+  title = {Rustfft - {{Rust}}},
+  urldate = {2023-12-06},
+  abstract = {RustFFT is a high-performance FFT library written in pure Rust.},
+  howpublished = {https://docs.rs/rustfft/latest/rustfft/}
 }
 
 @article{StructuredReviewSparse2022,

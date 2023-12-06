@@ -4,12 +4,7 @@
   abstract: [
     In this paper, we delve into the realm of Fast Fourier Transforms (FFTs), a
     family of algorithms employed for computing the Discrete Fourier Transform
-    (DFT). Recognizing the impracticality of direct DCT computation due to its $O(N^2)$ time
-    complexity, we explore various FFT algorithms, providing a comprehensive
-    comparison of their efficiency. Our objective is to analyze these algorithms in
-    terms of their time and space complexities. We will also discuss the limitations
-    of FFTs, explore some of the libraries for computing FFTs, and discuss some of
-    the many applications of FFTs.
+    (DFT). Recognizing the impracticality of direct DFT computation due to its $O(N^2)$ time complexity, we explore Cooley-Tukey radix-2 FFT extend our disccusion to other radix and non-radix based FFT algorithms. As each of the algorithms have the same $O(n log n)$ complexity, we discuss their distinguishing factors and when they are prefered. We will also discuss the limitations of FFTs related to it's use in mapping discrete data from the time to frequency domain, and how to mitigate them. We explore some examples of how FFTs are used, and how modern libraries go about selecting the best algorithm for a given context. Finally, we conclude with a discussion of the significance and impact of FFTs.
   ],
   authors: ((
     name: "Joshua Ferguson",
@@ -23,6 +18,7 @@
     "FFTs",
     "Discrete Fourier Transforms",
     "Algorithms",
+    "Radix-2",
   ),
   bibliography-file: "refs.bib",
 )
@@ -106,7 +102,7 @@ are what Fast Fourier Transforms exploit.
 = Cooley-Tukey FFT
 
 The Cooley-Tukey FFT was the "first" FFT algorithm, and was published in 1965 by
-James Cooley and John Tukey. It is a divide and conquer algorithm that makes use
+James Cooley and John Tukey#footnote[It was arguably "rediscoverd" as the same algorithm seems to have been first created by gauss in 1805, but this was only discovered after publication@heideman1985gauss]. It is a divide and conquer algorithm that makes use
 of the symetries of the DFT to reduce the number of operations required from $4N^2$ to $2N log N$.
 If $N$ in @DFT is a power of 2, and thus can be factored into $N=N_1 N_2$, we
 can break $k,j$ into $k=k_1+k_2 N_1$ and $n=n_1 N_2 + j_2 $, and rewrite it as
@@ -132,7 +128,7 @@ the radix is chosen to be a power of 2, as is the case for the radix-4 and
 radix-8 FFTs. These work by modifying the indices used by the "Decimation in
 Time" algorithm, and modifies the twiddle factors to account for the new
 indices. Each Radix-2#super[p] algorithm have $Theta(n log n)$ time complexity,
-though they differ in the number of real and complex multiplications. Radix-4
+though they differ in the number of real and complex multiplications@bouguezelImprovedRadix4Radix82004. Radix-4
 seems to be the commonly used radix-2#super[p] algorithm in FFT libraries such
 as FFTW and RustFFT.
 
@@ -172,11 +168,11 @@ The length of the input should ideally be a power of 2. For signals not meeting
 this criterion, zero padding can be used to extend the signal to the nearest
 power of 2. This approach doesn't alter the signal's frequency content but
 ensures compatibility with the FFT algorithm, a trade-off that's generally
-worthwhile given the FFT's time complexity.
+worthwhile given the FFT's time complexity@aamirCooleyTukeyFFTMethod2005.
 
 In the higher radix FFTs, the input signal is broken into subsets of lenth $N/r$ where $r$ is
 the radix. In the same way that the input to the radix-2 should be a power of 2,
-the input to the radix-2#super[p] FFT should be a power of 2#super[p].
+the input to the radix-2#super[p] FFT should be a power of 2#super[p]@amirfattahiCalculationComputationalComplexity2013.
 
 Below is an implementation of the radix-2 DIT FFT in Python, followed by a
 butterfly diagram that visualizes the operations performed by the algorithm.
@@ -223,7 +219,7 @@ compute the final FFT.
 
 The out of place implementation works in a top down, depth first fashion,
 whereas computing the FFT in place works in a bottom up, breadth first
-fashion.It's worth noting that the original Cooley-Tukey FFT was in-place. In
+fashion. It's worth noting that the original Cooley-Tukey FFT was in-place. In
 order to ensure the operations are performed in the correct order, the input
 array must be reordered. This is done by ordering the indices of the input array
 by their bit-reversed representation. The butterfly diagram is for the FFT of an
@@ -259,26 +255,25 @@ subproblems. Split radix FFTs are a sort of hybrid between the radix-2 and
 radix-4 FFTs. The input is split into 3 subsets of length $N/2$, $N/4$, and $N/4$,
 and the work is divided unevenly between them. This uneven distribution of work
 results in fewer arithmetic operations (both multiplications and additions), and
-makes it well suited for large inputs.
+makes it well suited for large inputs@johnsonModifiedSplitRadixFFT2007a.
 
 == Radix-3 FFT
 The radix-3 FFT is a generalization of the radix-2 FFT that works on inputs that
-are powers of 3. It's efficient for inputs that are powers of 3, and it's worth
+are powers of 3@duboisNewAlgorithmRadix31978. It's efficient for inputs that are powers of 3, and it's worth
 mentioning as it demonstrates that the radix based FFTs are not limited to
 powers of 2, and along with the existence of Split Radix FFTs, help lay the
 foundation of how modern FFT libraries work.
 
 == Good-Thomas FFT
-Also known as the Prime Factor FFT, the Good-Thomas FFT is a DCT algorithm that
-works on inputs whose length $N$ can be factored into relatively prime values $N_1 N_2$. It can be recursively applied to the $N_1$ and $N_2$ subproblems, though, like the split radix FFT, other FFT algorithms can be used for the subproblems. Unlike the Radix based FFTs, It doesn't rely on multiplication of values by the $N$th roots of unity at every stage, and instead rearranges the input to be a $N_1 times N_2$ matrix, and then computes the FFT along the rows and columns of the matrix. 
+Also known as the Prime Factor FFT, the Good-Thomas FFT is a DFT algorithm that
+works on inputs whose length $N$ can be factored into relatively prime values $N_1 N_2$. It can be recursively applied to the $N_1$ and $N_2$ subproblems, though, like the split radix FFT, other FFT algorithms can be used for the subproblems@pavanfft. Unlike the Radix based FFTs, It doesn't rely on multiplication of values by the $N$th roots of unity at every stage, and instead rearranges the input to be a $N_1 times N_2$ matrix, and then computes the FFT along the rows and columns of the matrix. 
 
 == Bluestein's FFT
-Bluestein's FFT is an algorithm for performing a chirp-z(CZT) transform, which is a generalization of the DFT. It expresses the CZT as a convolution, and can be used to perform more than just DFT transforms. It also has the advantage of working for arbitrary length inputs, including prime lengths. It calculates the DFT by using Z-transforms. 
+Bluestein's FFT is an algorithm for performing a chirp-z(CZT) transform, which is a generalization of the DFT. It expresses the CZT as a convolution, and can be used to perform more than just DFT transforms@amannahcomparative. It also has the advantage of working for arbitrary length inputs, including prime lengths. It calculates the DFT by using Z-transforms@pariyal2016comparison. 
 //$ A(k)=W^(-1/2)k^2() $
 
 == Discrete Cosine Transform (DCT)
-Whereas the BlueStein FFT is a generalization of the DFT, the DCT can be thought of as a generalization of the FFT. It isn't a DFT transform, as it doesn't map from the time domain to the frequency domain. Instead it maps from the spatial to frequency domains. It has an interesting property though, which is the input and output of a DCT are real. Because of this, it's widely
-used in lossy compression algorithms such as JPEG, MP3, as well as those used by video codecs. 
+Whereas the BlueStein FFT is a generalization of the DFT, the DCT can be thought of as a generalization of the FFT. It isn't a DFT transform, as it doesn't map from the time domain to the frequency domain. Instead it maps from the spatial to frequency domains@gupta2012analysis. It has an interesting property though, which is the input and output of a DCT are real. Because of this, it's widely used in lossy compression algorithms such as JPEG, MP3, as well as those used by video codecs. 
 
 There are multiple variants of the DCT, the most common being the DCT-II, which is the same as the FFT, except in place of the roots of unity it uses the cosine function. DCT-III is the inverse of DCT-II.
 
@@ -288,21 +283,21 @@ Since the DFT is used to decompose a signal into it's constituent frequencies,
 FFTs are useful in any application that requires frequency analysis. It's used
 heavily in situations where the input signal is noisy, as by decomposing the
 signal into the frequencies that make it up, it's possible to filter out those
-that are irrelevant to the application.
+that are irrelevant to the application@heckbert1995fourier.
 
 For example, in speech detection a common preprocessing step is computing the
-mel spectrogram of the input. This is done by taking a Short Time Fourier
+mel spectrogram of the input@luSpeechRecognitionUsing2020. This is done by taking a Short Time Fourier
 Transform (STFT) of the input, which is a sliding window DFT where the center of
 each window(or "sample") is equally distanced apart, these samples may or may
 not overlap, and the exact number of samples is specified ahead of time(usually
 2048). The output of this operation provides a spectrogram, which represents the
-change in frequency content of the input over time.
+change in frequency content of the input over time@grochenigFoundationsTimefrequencyAnalysis2001.
 
 The Mel Filterbank(a set of triangular filters spaced evenly on the mel scale)
 are then created and applied to the spectrogram via einstein summation, this in
 effect warps the frequency axis of the spectrogram to the mel scale, which is a
 scale that more closely represents the way humans perceive sound. These
-filterbanks are generally cached and then used for all future inputs.
+filterbanks are generally cached and then used for all future inputs
 
 This is used in most speech-based models as a preprocessing step, as it allows
 the model to focus on the relevant frequencies of the input, and ignore those
@@ -315,7 +310,7 @@ gaussian blur, and underlies many filter and denoising functions. It's use in
 science is near universal. The original problem which led to the publication of
 the 1965 Cooley-Tukey paper was so that seismographic data could be used to
 detect the size and distance of underground bomb test during the height of the
-cold war.
+cold war@anscombeQuietContributorCivic2003.
 
 Due to a certain problem symmetry that eludes the authors understanding, it can
 also be used to convert a polynomial from it's coefficient representation to
@@ -336,7 +331,7 @@ In order to understand aliasing, let us first consider the Nyquist-Shannon
 sampling theorem. If we sample a signal $X(t)$that is bandlimited, that is to
 say, there is a frequency $f_("max")$ such that the Fourier transform of $X(t)$ is
 zero for all $f>f_("max")$, then in order to perfectly reconstruct $X(t)$ from
-it's samples, we must sample at a rate of at least $2 f_("max")$.
+it's samples, we must sample at a rate of at least $2 f_("max")$@Cerna_Harvey.
 
 The folding frequency (or Nyquist frequency) is half the sampling frequency. $ f_("Nyquist")=1/2 f_"samples" $.
 If there are no frequencies above this threshold, then the signal can be
@@ -344,11 +339,11 @@ perfectly reconstructed from it's samples.
 
 If the the input signal contains frequencies above the Nyquist frequency, these
 higher frequencies will be folded back into the lower frequencies, and are thus
-indistinguishable from them. This is known as aliasing.
+indistinguishable from them@girgisQuantitativeStudyPitfalls1980. This is known as aliasing.
 
 == Picket-fence effect
 
-Given a signal of length $N$, he ideal sampling frequency is $"desired number of points"*1/N$ where $1/N$ is
+Given a signal of length $N$, the ideal sampling frequency is $"desired number of points"*1/N$ where $1/N$ is
 the fundamental frequency(the first/lowest frequency of a signal). Frequencies
 that are integer multiples of the fundamental frequency are known as harmonics.
 These harmonics are often referred to as "bins" in the context of the FFT, as
@@ -362,7 +357,7 @@ of the other harmonics. This is known as the picket-fence effect.
 The name derives from the fact that some parts of the Sinusoid (of the
 offcentered frequency) will be captured correctly at the bin, but the parts
 falling between those bins will be occluded, as if viewed through a picket
-fence.
+fence@Cerna_Harvey.
 
 == Spectral Leakage
 
@@ -374,7 +369,7 @@ in a smearing effect known as spectral leakage.
 
 The leakage effect can be reduced by applying a window function to the input.
 Window functions are (typically smooth, bell-curved shaped) functions that are
-zero outside of a certain range. These are applied to the input via elementwise
+zero outside of a certain range@Cerna_Harvey. These are applied to the input via elementwise
 multiplication, and the FFT is then applied to the result. This tapering of the
 input signal reduces the discontinuities at the window boundaries, and thus
 reduces the spectral leakage effect.
@@ -392,15 +387,21 @@ appropriate window function.
 
 As FFTs are often to a certain degree decomposable, and what is faster often depends both attributes of the input and on the availability of hardware features, modern FFT libraries tend to take a compositional approach. Instead, execution tends to happen in two phases, a planning phase and an execution phase. The planning phase is where the input and the environment are analyzed, and an algorithm is either selected or generated. The planning phase is often cached, either in memory or on disk, and is reused for all future inputs. The execution phase is supplied with the input and the plan, and performs the FFT.
 
-In FFTW, the planner has multiple modes, ranging from "patient" to "estimate". In Patient mode, the planner will try all fragments of optimized straight-line code (called codelets), and measure their performance using a dynamic programming approach. In estimate mode, the planner will minimize a cost function and avoid performing any measurements, and thus is much faster than the patient mode. As it is a dynamic programming algorithm, it will often solve subproblems multiple times. The planner can only find the approximate optimal plan.
+In FFTW, the planner has multiple modes, ranging from "patient" to "estimate"@frigoDesignImplementationFFTW32005. In Patient mode, the planner will try all fragments of optimized straight-line code (called codelets), and measure their performance using a dynamic programming approach. In estimate mode, the planner will minimize a cost function and avoid performing any measurements, and thus is much faster than the patient mode. As it is a dynamic programming algorithm, it will often solve subproblems multiple times. The planner can only find the approximate optimal plan.
 
 The codelets are generated by a specialized compiler that creates optimized codelets based on an abstract description of the special cases of the DFT. Most users won't need to do this, as the library comes with 150 pregenerated codelets(though this number may not be accurate as it is from the 2005 paper). These codelets compose the space of possible plans the planner can generate.
 
 
 This compositional approach also means that libraries are portable, and can be used on a variety of architectures. Prior to the compositional approach, FFTs were often hand tuned for specific architectures and hardware.
 
-Other FFT libraries generally work in a similar, albeit often simpler, fashion. RustFFT, for example, composes the FFTs from structures called "butterflies", which are the basic building blocks of the FFT. It, like FFTW, has different implementations based off the availablity of hardware instructions, such as AVX and Neon. 
+Other FFT libraries generally work in a similar, albeit often simpler, fashion. RustFFT, for example, composes the FFTs from structures called "butterflies", which are the basic building blocks of the FFT. It, like FFTW, has different implementations based off the availablity of hardware instructions, such as AVX and Neon@RustfftRust. 
 
 = Conclusion
 
-#text(blue)[#lorem(100)]
+FFTs are arguably one of the most important algorithms in use today. In the preface of 'The Fast Fourier transform' the author states that "The Fourier transform has long been a principle analytical tool in such diverse fields as linar systems, optics, probability theory, quantum mechanics, antennas, and signal analysis. A similar statement is not true for the discrete Fourier transform."@brighamFastFourierTransform1974 It was just too expensive to compute directly. The FFT enabled the use of the DFT in a way that was previously impossible. 
+
+Since cooley-tukey published their paper in 1965, the set of FFT algorithms has expanded from the radix-2 to include many other algorithms, each generally employing a similar divide and conquer approach. Most of these algorithms (all of the ones we covered) achieve $O(n log n)$ time complexity, but differ in their operation counts and suitability for different input sizes. 
+
+They aren't without their limitations. They inherent these limitations from the DFT, and thus require a little domain knowledge to use effectively. These limitations can be mitigated, and what they offer is often worth the cost acquiring the prerequisite knowledge.
+
+FFTs enable our societies use of digital media, without which our bandwidth would struggle or fail to meet the demands of modern society. These algorithms enable the pursuit of almost every science, arguably every science which requires at least some analysis of time series data. They also underly the preprocessing steps of many machine learning models, and are used in many of the models themselves. Without the FFT, our world would be a different, lesser place.
