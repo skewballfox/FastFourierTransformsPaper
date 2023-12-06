@@ -1,7 +1,47 @@
+@article{amirfattahiCalculationComputationalComplexity2013,
+  title = {Calculation of {{Computational Complexity}} for {{Radix-2p Fast Fourier Transform Algorithms}} for {{Medical Signals}}},
+  author = {Amirfattahi, Rassoul},
+  year = {2013},
+  journal = {Journal of Medical Signals and Sensors},
+  volume = {3},
+  number = {4},
+  pages = {217--224},
+  issn = {2228-7477},
+  urldate = {2023-12-05},
+  abstract = {Owing to its simplicity radix-2 is a popular algorithm to implement fast fourier transform. Radix-2p algorithms have the same order of computational complexity as higher radices algorithms, but still retain the simplicity of radix-2. By defining a new concept, twiddle factor template, in this paper, we propose a method for exact calculation of multiplicative complexity for radix-2p algorithms. The methodology is described for radix-2, radix-22 and radix-23 algorithms. Results show that radix-22 and radix-23 have significantly less computational complexity compared with radix-2. Another interesting result is that while the number of complex multiplications in radix-23 algorithm is slightly more than radix-22, the number of real multiplications for radix-23 is less than radix-22. This is because of the twiddle factors in the form of  which need less number of real multiplications and are more frequent in radix-23 algorithm.},
+  pmcid = {PMC3967424},
+  pmid = {24696799}
+}
+
+@inproceedings{basharEfficientApproachComputation2013,
+  title = {An Efficient Approach to the Computation of Fast Fourier Transform({{FFT}}) by {{Radix-3}} Algorithm},
+  booktitle = {2013 {{International Conference}} on {{Informatics}}, {{Electronics}} and {{Vision}} ({{ICIEV}})},
+  author = {Bashar, Syed Khairul},
+  year = {2013},
+  month = may,
+  pages = {1--5},
+  doi = {10.1109/ICIEV.2013.6572680},
+  urldate = {2023-12-06},
+  abstract = {In this paper an efficient approach to compute Discrete Fourier Transform (DFT) using Radix-3 algorithm, which is a Fast Fourier Transform (FFT), has been presented. It takes less multiplication than the usual one. The key idea is that matrix formed by different powers of twiddle factor (phase factor) is decomposed into two matrices and it has been shown that it takes less complex multiplications to compute the result than original Cooley-Tukey method. Later, Matlab simulations verifying the calculations have been added to demonstrate the outcome.}
+}
+
+@inproceedings{bouguezelImprovedRadix4Radix82004,
+  title = {Improved Radix-4 and Radix-8 {{FFT}} Algorithms},
+  booktitle = {2004 {{IEEE International Symposium}} on {{Circuits}} and {{Systems}} ({{IEEE Cat}}. {{No}}.{{04CH37512}})},
+  author = {Bouguezel, S. and Ahmad, M.O. and Swamy, M.N.S.},
+  year = {2004},
+  month = may,
+  volume = {3},
+  pages = {III-561},
+  doi = {10.1109/ISCAS.2004.1328808},
+  urldate = {2023-12-05},
+  abstract = {In this paper, improved algorithms for radix-4 and radix-8 FFT are presented. This is achieved by re-indexing a subset of the output samples resulting from the conventional decompositions in the radix-4 and radix-8 FFT algorithms. These modified radix-4 and radix-8 algorithms provide savings of more than 33\% and 42\% respectively in the number of twiddle factor evaluations or accesses to the lookup table compared to the corresponding conventional FFT algorithms without imposing any additional complexity.}
+}
+
 @misc{Cerna_Harvey,
   title = {The Fundamentals of {{FFT-based}} Signal Analysis and Measurement},
   author = {Cerna, Michael and Harvey, Audrey F},
-  publisher = {{San Jos\'e State University}},
+  publisher = {{San Jos{\'e} State University}},
   file = {/home/skewballfox/Zotero/storage/7NC2B8MT/Cerna and Harvey - The fundamentals of FFT-based signal analysis and .pdf}
 }
 
@@ -82,12 +122,39 @@
   file = {/home/skewballfox/Zotero/storage/X2CEY64U/Heideman et al. - 1985 - Gauss and the history of the fast Fourier transfor.pdf}
 }
 
+@inproceedings{heNewApproachPipeline1996,
+  title = {A New Approach to Pipeline {{FFT}} Processor},
+  booktitle = {Proceedings of {{International Conference}} on {{Parallel Processing}}},
+  author = {He, Shousheng and Torkelson, M.},
+  year = {1996},
+  month = apr,
+  pages = {766--770},
+  doi = {10.1109/IPPS.1996.508145},
+  urldate = {2023-12-05},
+  abstract = {A new VLSI architecture for a real-time pipeline FFT processor is proposed. A hardware-oriented radix-2/sup 2/ algorithm is derived by integrating a twiddle factor decomposition technique in the divide-and-conquer approach. The radix-2/sup 2/ algorithm has the same multiplicative complexity as the radix-4 algorithm, but retains the butterfly structure of the radix-2 algorithm. The single-path delay-feedback architecture is used to exploit the spatial regularity in the signal flow graph of the algorithm. For length-N DFT computation, the hardware requirement of the proposed architecture is minimal on both dominant components: log/sub 4/N-1 complexity multipliers and N-1 complexity data memory. The validity and efficiency of the architecture have been verified by simulation in the hardware description language VHDL.}
+}
+
 @misc{IntroductionAudioData,
   title = {Introduction to Audio Data - {{Hugging Face Audio Course}}},
   journal = {Hugging Face},
   urldate = {2023-12-03},
   abstract = {We're on a journey to advance and democratize artificial intelligence through open source and open science.},
   howpublished = {https://huggingface.co/learn/audio-course/chapter1/audio\_data}
+}
+
+@article{johnsonModifiedSplitRadixFFT2007,
+  title = {A {{Modified Split-Radix FFT With Fewer Arithmetic Operations}}},
+  author = {Johnson, Steven G. and Frigo, Matteo},
+  year = {2007},
+  month = jan,
+  journal = {IEEE Transactions on Signal Processing},
+  volume = {55},
+  number = {1},
+  pages = {111--119},
+  issn = {1941-0476},
+  doi = {10.1109/TSP.2006.882087},
+  urldate = {2023-12-05},
+  abstract = {Recent results by Van Buskirk have broken the record set by Yavne in 1968 for the lowest exact count of real additions and multiplications to compute a power-of-two discrete Fourier transform (DFT). Here, we present a simple recursive modification of the split-radix algorithm that computes the DFT with asymptotically about 6\% fewer operations than Yavne, matching the count achieved by Van Buskirk's program-generation framework. We also discuss the application of our algorithm to real-data and real-symmetric (discrete cosine) transforms, where we are again able to achieve lower arithmetic counts than previously published algorithms}
 }
 
 @inproceedings{moreland2003fft,
@@ -122,6 +189,14 @@
   issn = {1051-2004},
   doi = {10.1016/j.dsp.2022.103403},
   urldate = {2023-11-08},
-  abstract = {Discrete Fourier transform (DFT) implementation requires high computational resources and time; a computational complexity of order O(N2) for a signal\ldots},
+  abstract = {Discrete Fourier transform (DFT) implementation requires high computational resources and time; a computational complexity of order O(N2) for a signal{\ldots}},
   langid = {american}
+}
+
+@inproceedings{XtnesaLX4Configurable2013,
+  title = {Case Study: {{Using}} the Xtensa {{LX4}} Configurable Processor for Hearing Aid Applications},
+  booktitle = {{{ICT}}.{{OPEN Conference}}},
+  author = {Werner, Norbert and Pay, Guillermo and Blume, Holger},
+  year = {2013},
+  month = nov
 }

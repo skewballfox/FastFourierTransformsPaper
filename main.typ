@@ -56,7 +56,10 @@ efficiently performing a DFT. First developed as a way to detect underground
 bomb tests from seismic data, it's an algorithm that is ubiquitous in signal
 processing, image processing, and many other fields. In order to understand the
 FFT, and how it functions, we will first need to provide some background on the
-DFT and Fourier Transforms in general.
+DFT and Fourier Transforms in general. Also, given the intended audience for
+this paper have a background in computer science, where signal processing is
+somewhat an orthogonal topic, we will define any definitions, concepts, or
+definitions that are related to signal processing as they are introduced.
 
 = The Fourier Transform and Discrete Fourier Transform
 Fourier transforms are a set of mathematical operations that decompose a
@@ -79,7 +82,7 @@ being: $ a_n = (1/N) sum_(k=0)^(N-1) A_k W^(-k n) $ where $W_N = e^(-i (2pi n)/N
 the group of $N$th roots of unity. The only difference between the DFT and it's
 inverse is the sign of the exponent in $W_N$, as well as the $1/N$ normalization.
 
-=== The Nth Root of Unity <n-roots>
+//=== The Nth Root of Unity <n-roots>
 the $N$th root of unity is a set of $N$ complex numbers where $(W_N^k)^N=1$ for
 all $k$, and $W_N^k=W_N^(k+j N)$ for all $k,j$. That is to say, they are
 periodic with period $N$. Visually, the $N$th roots of unity are the $N$ equally
@@ -94,15 +97,13 @@ unity:
 When used in the DFT, the $N$th roots effectively rotate the values of the input
 signal in the complex plane.
 
-=== Issues with direct computation of the DFT
+// === Issues with direct computation of the DFT
 The DFT is impractical to compute directly as it requires $4N^2$ floating point
-operations.
+operations. Though the computations of many of these operations are redundant,
+used when calculating the values of multiple entries. This computational reuse
+are what Fast Fourier Transforms exploit.
 
 = Cooley-Tukey FFT
-
-The DFT is impractical to compute directly as it requires $4N^2$ floating point
-operations. It wasn't until Cooley and Tukey published their paper in 1965 that
-DFTs were usable in practice.
 
 The Cooley-Tukey FFT was the "first" FFT algorithm, and was published in 1965 by
 James Cooley and John Tukey. It is a divide and conquer algorithm that makes use
@@ -112,9 +113,12 @@ can break $k,j$ into $k=k_1+k_2 N_1$ and $n=n_1 N_2 + j_2 $, and rewrite it as
 $ A[k_1 + k_2 N_1] =\ sum_(n_2=0)^(N_2-1) W_(N_2)^(n_2 k_2) ( W_(N)^(n_2 k_1) sum_(n_1=0)^(N_1-1) a[n_1 N_2 + n_2] W_(N_1)^(n_1 k_1) ) $ <cooley-tukey>
 
 This computes $N_2$ DFTs of length $N_1$, multiplies the result by $W_(N_2)^(n_2 k_2)$ and $W_(N)^(n_2 k_1)$,
-and then computes a final DFT of length $N_2$ on the result. The computation
-happens recursively, with the base case being $N=1$, which is just the identity
-function.@frigoDesignImplementationFFTW32005
+and then computes a final DFT of length $N_2$ on the result. The algorithm can
+be implemented iteratively or recursively. In a recursive implementation, the
+base case is when $N=1$, which is just the identity
+function.@frigoDesignImplementationFFTW32005, and the recurrence relation is $T(N)=2T(N/2) +Theta(N)$ <recurrence>.
+Using the Master Theorem, since $c=log_b a=1$, $k=0$ and thus $f(n)=Theta(N)=Theta(n^c log^0 n)$,
+it's time complexity is $Theta(N log N)$.
 
 The three roots of unity $W_(N)^(n_2 k_1)$,$W_(N_2)^(n_2 k_2)$, and $W_(N_1)^(n_1 k_1)$ are
 collectively known as the "twiddle factors". The reason $W_(N)^(n_2 k_1)$ is
@@ -122,23 +126,155 @@ used is to account for offsets in the time(or input) domain due to the
 separation into smaller DFTs.
 
 If $N_1$ or $N_2$ are bounded, they are often referred to as the "radix". In the
-original Cooley-Tukey FFT, $N_1=2$ and $N_2=N/2$, and thus the radix is 2. In
-modern FFTs, the radix is often 4, 8, or 16. While these technically result in a
-higher number of operations (though still $O(N log N)$), they are often faster
-in practice due to hardware features such as SIMD instructions.
+original Cooley-Tukey FFT, $N_1=2$ and $N_2=N/2$, and thus the radix is 2.
+Though, other radices are possible, and are often used in practice. Generally,
+the radix is chosen to be a power of 2, as is the case for the radix-4 and
+radix-8 FFTs. These work by modifying the indices used by the "Decimation in
+Time" algorithm, and modifies the twiddle factors to account for the new
+indices. Each Radix-2#super[p] algorithm have $Theta(n log n)$ time complexity,
+though they differ in the number of real and complex multiplications. Radix-4
+seems to be the commonly used radix-2#super[p] algorithm in FFT libraries such
+as FFTW and RustFFT.
 
-#text(blue)[#lorem(50)]
+// In
+// modern FFTs, the radix is often 4, 8, or 16. While these technically result in a
+// higher number of operations (though still $O(N log N)$), they are often faster
+// in practice due to hardware features such as SIMD instructions.
 
-The FFT can be used to map a Polynomial from it's coefficient representation to
-it's value representation.
+// In signal processing, decimation is a reduction in the sample rate. In the context of the FFT, decimation in time is a method of reorganizing the input signal rather than reducing its sample rate as in traditional signal processing. The process involves splitting the input sequence into two subsets containing the even and odd indexed samples. This division doesn't discard any data but reorders it for efficient FFT computation.
 
-== Coefficient to Value Representation of a Polynomial
+Decimation in Time refers to the fact that the input signal is decimated in the
+time domain. For context, decimation is a reduction in the sample rate of a
+signal. Normally, this would be cause a loss of information, but in the FFT it's
+used to take a divide and conquer approach. In the radix-2 DIT FFT, the input
+signal is broken into two smaller signals, each with half the number of samples
+and half the sample rate. Since the samples that compose the input signal are
+spaced according to the sample rate, and their order is preserved, the smaller
+signals are composed of the even and odd samples of the input signal,
+respectively. Because of this division, the input signal should be a power of 2.
+For signals not meeting this criterion, padding can be used to extend the signal
+to the nearest power of 2. Zero padding is typically used, though other padding
+functions can be used as well. Zero padding doesn't alter the signal's frequency
+resolution, but it does improve the estimations of the amplitude of its
+frequencies.
+
+//TODO: need a paragraph on DIF, then IFFT
+There is also "Decimation in Frequency", which divides the input signal into two
+halves based on the frequency domain. This works out to simply be the first and
+second half of the input signal.
+
+Since the FFT is just a fast way to compute the DFT, it has an inverse. The
+algorithm for the inverse FFT is the same as the forward FFT, except the sign of
+the exponent in the twiddle factors is reversed, and the final result is
+normalized by $1/N$.
+
+The length of the input should ideally be a power of 2. For signals not meeting
+this criterion, zero padding can be used to extend the signal to the nearest
+power of 2. This approach doesn't alter the signal's frequency content but
+ensures compatibility with the FFT algorithm, a trade-off that's generally
+worthwhile given the FFT's time complexity.
+
+In the higher radix FFTs, the input signal is broken into subsets of lenth $N/r$ where $r$ is
+the radix. In the same way that the input to the radix-2 should be a power of 2,
+the input to the radix-2#super[p] FFT should be a power of 2#super[p].
+
+Below is an implementation of the radix-2 DIT FFT in Python, followed by a
+butterfly diagram that visualizes the operations performed by the algorithm.
+Note this implementation is out of place, and thus requires $O(N)$ extra space.
+This cost can be avoided by using an in place implementation, but would require
+reordering the input array, as discussed in the next section. The out of place
+implementation works in a top down, depth first fashion, first computing the FFT
+of the even indices, followed by the odd indices, and then uses the result to
+compute the final FFT.
+
+```py
+    def FFT(a: NDArray[complex]) -> NDArray[complex]:
+        n: int = len(a) # n is a power of 2
+        if n == 1:
+            return a
+        nth_root: complex = e**((2*pi*1j)/n)
+        even: NDArray[complex] = FFT(a[::2])
+        odd: NDArray[complex] = FFT(a[1::2])
+        result= np.zeros(n, dtype=complex)
+        for k in range(n//2):
+            result[k] = (
+                          even[k] +
+                          (nth_root**k * odd[k])
+                        )
+            result[k+n//2] = (
+                            even[k] -
+                            (nth_root**k * odd[k])
+                            )
+        return result
+```
+
+#figure(
+  image(".attachments/DIT-FFT-butterfly.png", width: 70%),
+  caption: [
+    Operations of an out of place 8-point FFT. #footnote[By Yangwenbo99 - Own work, CC BY-SA 4.0,\
+      https://commons.wikimedia.org/w/index.php?curid=111271197]
+  ],
+)
+
+== Bit Reversal in In Place FFT
+
+// Let's examine the operations performed via the out-of-place radix-2 DFT via a
+// butterfly diagram:
+
+The out of place implementation works in a top down, depth first fashion,
+whereas computing the FFT in place works in a bottom up, breadth first
+fashion.It's worth noting that the original Cooley-Tukey FFT was in-place. In
+order to ensure the operations are performed in the correct order, the input
+array must be reordered. This is done by ordering the indices of the input array
+by their bit-reversed representation. The butterfly diagram is for the FFT of an
+8 element array. all Intermediate results are stored in the array for the
+results, and the computations are completed for each stage prior to moving on to
+the next one.
+
+#figure(image(
+  ".attachments/Example-of-an-8-point-FFT-butterfly-scheme_W640.jpg",
+  //width: 80%,
+), caption: [
+  Operations of an in place 8-point FFT. @XtnesaLX4Configurable2013
+])
+//TODO: add a paragraph about DIF
+
+= Other FFT Algorithms
+
+So far we've only discussed the original Cooley-Tukey FFT, which is radix-2
+algorithm, and briefly mentioned radix-2#super[p] algorithms, which are
+generalizations of the radix-2 FFT to higher powers of 2. There are many other
+FFT algorithms. each of these algorithms share the $O(n log n)$ time complexity
+of the Cooley-Tukey FFT, but are suited to different input sizes and lengths.
+We'll briefly di#text(blue)[#lorem(50)]
+
+== Split Radix FFT
+Radix-4 has fewer operations than the radix-2, but places additional constraints
+on the input size since not all factors of 2 are factors of 4. In each of the
+radix-2#super[p] algorithms, the work is divided evenly between the two or more
+subproblems. Split radix FFTs are a sort of hybrid between the radix-2 and
+radix-4 FFTs. The input is split into 3 subsets of length $N/2$, $N/4$, and $N/4$,
+and the work is divided unevenly between them. This uneven distribution of work
+results in fewer arithmetic operations (both multiplications and additions), and
+makes it well suited for large inputs.
+
+== Radix-3 FFT
+The radix-3 FFT is a generalization of the radix-2 FFT that works on inputs that
+are powers of 3. It's efficient for inputs that are powers of 3, and it's worth
+mentioning as it demonstrates that the radix based FFTs are not limited to
+powers of 2, and along with the existence of Split Radix FFTs, help lay the
+foundation of how modern FFT libraries work.
+
+== Good-Thomas FFT
 #text(blue)[#lorem(100)]
 
-== Bit Reversal in Signal Processing
+== Bluestein's FFT
 #text(blue)[#lorem(100)]
 
-= Applications and Limitations
+== Discrete Cosine Transform (DCT)
+#text(blue)[#lorem(100)]
+
+= Applications
 
 Since the DFT is used to decompose a signal into it's constituent frequencies,
 FFTs are useful in any application that requires frequency analysis. It's used
@@ -165,14 +301,33 @@ the model to focus on the relevant frequencies of the input, and ignore those
 that are irrelevant.
 
 This is just one example of it's use in filtering. It's used in image
-compression
+compression; the jpeg format uses DCTs for their compression algorithm. Much the
+same way in image processing, it's useful for performing operations such as
+gaussian blur, and underlies many filter and denoising functions. It's use in
+science is near universal. The original problem which led to the publication of
+the 1965 Cooley-Tukey paper was so that seismographic data could be used to
+detect the size and distance of underground bomb test during the height of the
+cold war.
 
-== Limitations
+Due to a certain problem symmetry that eludes the authors understanding, it can
+also be used to convert a polynomial from it's coefficient representation to
+it's it's value representation where each index is the evaluation of the
+polynomial at the index value.#text(blue)[#lorem(50)]
+
+Polynomial multiplication using the coefficient representation is $O(N^2)$, but
+only $O(N)$ using the value representation. The FFT(and it's inverse) can be
+used to convert between these two representations in $O(N log N)$ time, and thus
+can be used to multiply polynomials in $O(N log N)$ time.
+
+= Limitations
+
+
 
 The FFT is a discrete transform, and its inputs are often continuous signals
-captured at fixed sample rates. The #text(blue)[#lorem(50)]
+captured at fixed sample rates. The Limitations of the FFT are thus related to
+the sampling of the input signal.#text(blue)[#lorem(50)]
 
-=== aliasing
+== aliasing
 
 In order to understand aliasing, let us first consider the Nyquist-Shannon
 sampling theorem. If we sample a signal $X(t)$that is bandlimited, that is to
@@ -188,7 +343,7 @@ If the the input signal contains frequencies above the Nyquist frequency, these
 higher frequencies will be folded back into the lower frequencies, and are thus
 indistinguishable from them. This is known as aliasing.
 
-=== Picket-fence effect
+== Picket-fence effect
 
 Given a signal of length $N$, he ideal sampling frequency is $"desired number of points"*1/N$ where $1/N$ is
 the fundamental frequency(the first/lowest frequency of a signal). Frequencies
@@ -206,12 +361,36 @@ offcentered frequency) will be captured correctly at the bin, but the parts
 falling between those bins will be occluded, as if viewed through a picket
 fence.
 
-=== Leakage
+== Spectral Leakage
 
-#text(blue)[#lorem(100)]
+The FFT assumes that the input signal is periodic, and that the samples are
+taken over a single period. If the input signal is not periodic within the
+sample window this will result discontinuities at the window boundaries. As a
+result, the energy of each frequency will be spread across the bins, resulting
+in a smearing effect known as spectral leakage.
+
+The leakage effect can be reduced by applying a window function to the input.
+Window functions are (typically smooth, bell-curved shaped) functions that are
+zero outside of a certain range. These are applied to the input via elementwise
+multiplication, and the FFT is then applied to the result. This tapering of the
+input signal reduces the discontinuities at the window boundaries, and thus
+reduces the spectral leakage effect.
+
+This is a trade-off between frequency resolution and spectral leakage. When a
+window function is used, the signal's edges are smoothed, which reduces leakage
+but at the expense of blurring the frequency components. This blurring effect
+can make it difficult to distinguish between closely spaced frequencies, leading
+to a loss of resolution. This trade-off can be minimized by selecting an
+appropriate window function.
+
+//Therefore, selecting an appropriate window function depends on the specific requirements of the analysis, balancing the need to minimize leakage with the requirement for precise frequency resolution.
+
 = Modern Implementations
 
 == Planner
 
+#text(blue)[#lorem(100)]
+
 = Conclusion
 
+#text(blue)[#lorem(100)]
