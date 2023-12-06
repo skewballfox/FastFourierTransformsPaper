@@ -246,7 +246,10 @@ algorithm, and briefly mentioned radix-2#super[p] algorithms, which are
 generalizations of the radix-2 FFT to higher powers of 2. There are many other
 FFT algorithms. each of these algorithms share the $O(n log n)$ time complexity
 of the Cooley-Tukey FFT, but are suited to different input sizes and lengths.
-We'll briefly di#text(blue)[#lorem(50)]
+We'll briefly discuss some radix based FFTs that aren't radix-2#super[p], and then discuss some of the non-radix based FFTs. This is not an exhaustive list, 
+unfortunately, as there are many other FFT algorithms that we won't be able to cover. 
+
+//#text(blue)[#lorem(50)]
 
 == Split Radix FFT
 Radix-4 has fewer operations than the radix-2, but places additional constraints
@@ -266,13 +269,18 @@ powers of 2, and along with the existence of Split Radix FFTs, help lay the
 foundation of how modern FFT libraries work.
 
 == Good-Thomas FFT
-#text(blue)[#lorem(100)]
+Also known as the Prime Factor FFT, the Good-Thomas FFT is a DCT algorithm that
+works on inputs whose length $N$ can be factored into relatively prime values $N_1 N_2$. It can be recursively applied to the $N_1$ and $N_2$ subproblems, though, like the split radix FFT, other FFT algorithms can be used for the subproblems. Unlike the Radix based FFTs, It doesn't rely on multiplication of values by the $N$th roots of unity at every stage, and instead rearranges the input to be a $N_1 times N_2$ matrix, and then computes the FFT along the rows and columns of the matrix. 
 
 == Bluestein's FFT
-#text(blue)[#lorem(100)]
+Bluestein's FFT is an algorithm for performing a chirp-z(CZT) transform, which is a generalization of the DFT. It expresses the CZT as a convolution, and can be used to perform more than just DFT transforms. It also has the advantage of working for arbitrary length inputs, including prime lengths. It calculates the DFT by using Z-transforms. 
+//$ A(k)=W^(-1/2)k^2() $
 
 == Discrete Cosine Transform (DCT)
-#text(blue)[#lorem(100)]
+Whereas the BlueStein FFT is a generalization of the DFT, the DCT can be thought of as a generalization of the FFT. It isn't a DFT transform, as it doesn't map from the time domain to the frequency domain. Instead it maps from the spatial to frequency domains. It has an interesting property though, which is the input and output of a DCT are real. Because of this, it's widely
+used in lossy compression algorithms such as JPEG, MP3, as well as those used by video codecs. 
+
+There are multiple variants of the DCT, the most common being the DCT-II, which is the same as the FFT, except in place of the roots of unity it uses the cosine function. DCT-III is the inverse of DCT-II.
 
 = Applications
 
@@ -312,20 +320,15 @@ cold war.
 Due to a certain problem symmetry that eludes the authors understanding, it can
 also be used to convert a polynomial from it's coefficient representation to
 it's it's value representation where each index is the evaluation of the
-polynomial at the index value.#text(blue)[#lorem(50)]
-
-Polynomial multiplication using the coefficient representation is $O(N^2)$, but
-only $O(N)$ using the value representation. The FFT(and it's inverse) can be
-used to convert between these two representations in $O(N log N)$ time, and thus
-can be used to multiply polynomials in $O(N log N)$ time.
+polynomial at the index value. Polynomial multiplication using the coefficient representation is $O(N^2)$, but only $O(N)$ using the value representation. The FFT(and it's inverse) can be used to convert between these two representations in $O(N log N)$ time, and thus can be used to multiply polynomials in $O(N log N)$ time.
 
 = Limitations
 
+// The most obvious limitation of (most) FFTs is the requirement on the input size. However either via padding or simply foresight, this can be mitigated. It's also worth noting that real valued inputs need to be converted to complex numbers, though in many cases the DCT can be used instead. 
 
-
-The FFT is a discrete transform, and its inputs are often continuous signals
+There are some limitations of the algorithm related to it's use in signal processing. The FFT is a discrete transform, and its inputs are often continuous signals
 captured at fixed sample rates. The Limitations of the FFT are thus related to
-the sampling of the input signal.#text(blue)[#lorem(50)]
+the sampling of the input signal.
 
 == aliasing
 
@@ -387,9 +390,16 @@ appropriate window function.
 
 = Modern Implementations
 
-== Planner
+As FFTs are often to a certain degree decomposable, and what is faster often depends both attributes of the input and on the availability of hardware features, modern FFT libraries tend to take a compositional approach. Instead, execution tends to happen in two phases, a planning phase and an execution phase. The planning phase is where the input and the environment are analyzed, and an algorithm is either selected or generated. The planning phase is often cached, either in memory or on disk, and is reused for all future inputs. The execution phase is supplied with the input and the plan, and performs the FFT.
 
-#text(blue)[#lorem(100)]
+In FFTW, the planner has multiple modes, ranging from "patient" to "estimate". In Patient mode, the planner will try all fragments of optimized straight-line code (called codelets), and measure their performance using a dynamic programming approach. In estimate mode, the planner will minimize a cost function and avoid performing any measurements, and thus is much faster than the patient mode. As it is a dynamic programming algorithm, it will often solve subproblems multiple times. The planner can only find the approximate optimal plan.
+
+The codelets are generated by a specialized compiler that creates optimized codelets based on an abstract description of the special cases of the DFT. Most users won't need to do this, as the library comes with 150 pregenerated codelets(though this number may not be accurate as it is from the 2005 paper). These codelets compose the space of possible plans the planner can generate.
+
+
+This compositional approach also means that libraries are portable, and can be used on a variety of architectures. Prior to the compositional approach, FFTs were often hand tuned for specific architectures and hardware.
+
+Other FFT libraries generally work in a similar, albeit often simpler, fashion. RustFFT, for example, composes the FFTs from structures called "butterflies", which are the basic building blocks of the FFT. It, like FFTW, has different implementations based off the availablity of hardware instructions, such as AVX and Neon. 
 
 = Conclusion
 
